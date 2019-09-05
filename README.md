@@ -38,7 +38,7 @@ jobs:
         uses: nanasess/setup-php@v1
         with:
           php-version: ${{ matrix.php }}
-      - run: php my_script.py
+      - run: php my_script.php
 ```
 
 # License
