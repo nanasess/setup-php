@@ -1,6 +1,9 @@
 name: 'Setup PHP environment'
 description: 'Setup a PHP environment and add it to the PATH, additionally providing proxy support'
 author: 'nanasess'
+branding:
+  color: purple
+  icon: code
 inputs:
   php-version:
     description: 'Version Spec of the version to use.  Examples: 7.1'
