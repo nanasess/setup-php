@@ -12,7 +12,6 @@ sudo apt-get update
 sudo apt-get install -y build-essential debconf-utils unzip autogen autoconf libtool pkg-config
 
 sudo apt-get install -y \
-     php${version} \
      php${version}-bcmath \
      php${version}-bz2 \
      php${version}-cgi \
