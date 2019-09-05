@@ -32,5 +32,7 @@ jobs:
       with:
         php-version: ${{ matrix.php}}
     - name: php --version
-      run: php --version
+      run: |
+        php --version
+        php -i
 
