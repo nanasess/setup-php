@@ -19,7 +19,7 @@ steps:
 - uses: actions/checkout@master
 - uses: nanasess/setup-php@v1
   with:
-    php-version: '3.x' # Version range or exact version of a PHP version to use, using semvers version range syntax.
+    php-version: '7.3' # Version range or exact version of a PHP version to use, using semvers version range syntax.
 - run: php my_script.php
 ```
 
