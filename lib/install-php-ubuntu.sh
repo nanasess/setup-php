@@ -11,6 +11,8 @@ sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 sudo apt-get install -y build-essential debconf-utils unzip autogen autoconf libtool pkg-config
 
+sudo apt-get purge 'php*'
+
 sudo apt-get install -y \
      php${version}-bcmath \
      php${version}-bz2 \
@@ -30,6 +32,7 @@ sudo apt-get install -y \
      php${version}-opcache \
      php${version}-pgsql \
      php${version}-phpdbg \
+     php${version}-readline \
      php${version}-soap \
      php${version}-sqlite3 \
      php${version}-xml \
