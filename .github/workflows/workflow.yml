@@ -28,7 +28,7 @@ jobs:
       run: npm test
 
     - name: Setup PHP
-      uses: nanasess/setup-php@master
+      uses: ./
       with:
         php-version: ${{ matrix.php}}
     - name: php --version
