@@ -1,0 +1,12 @@
+name: 'Setup PHP environment'
+description: 'Setup a PHP environment and add it to the PATH, additionally providing proxy support'
+author: 'nanasess'
+inputs:
+  php-version:
+    description: 'Version Spec of the version to use.  Examples: 7.1'
+    default: '7.3'
+  scope:
+    description: 'Optional scope for authenticating against scoped registries'
+runs:
+  using: 'node12'
+  main: 'lib/setup-php.js'
