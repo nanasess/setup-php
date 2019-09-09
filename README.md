@@ -6,7 +6,7 @@
 
 This action sets up a PHP environment for use in actions by:
 
-- optionally installing a version of PHP and adding to PATH. Note that this action only uses versions of PHP already installed in the cache. The action will fail if no matching versions are found.
+- optionally installing a version of PHP and adding to PATH.
 - registering problem matchers for error output
 
 # Usage
@@ -19,7 +19,7 @@ steps:
 - uses: actions/checkout@master
 - uses: nanasess/setup-php@v1
   with:
-    php-version: '7.3' # Version range or exact version of a PHP version to use, using semvers version range syntax.
+    php-version: '7.3' # Middle version of a PHP version to use, using APT package version syntax.
 - run: php my_script.php
 ```
 
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-16.04
     strategy:
       matrix:
-        php: [ '5.6', '7.1', '7.2', '7.3 ]
+        php: [ '5.6', '7.1', '7.2', '7.3' ]
     name: PHP ${{ matrix.php }} sample
     steps:
       - uses: actions/checkout@master
