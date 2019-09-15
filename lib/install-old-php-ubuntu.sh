@@ -9,7 +9,7 @@ sudo apt-get update
 sudo apt-get purge 'php*'
 sudo apt-get install -y libcurl4-openssl-dev libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
-     zlib1g-dev libzip-dev libpq-dev libpq5 postgresql-client mysql-client
+     libssl-dev zlib1g-dev libzip-dev libpq-dev libpq5 postgresql-client mysql-client
 
 sudo ln -s /usr/include/x86_64-linux-gnu/curl /usr/local/include/curl
 
