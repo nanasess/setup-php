@@ -5,7 +5,9 @@ set -eo pipefail
 release=$(lsb_release -cs)
 version=$1
 
-cd /tmp
+echo "RUNNER_TOOL_CACHE: ${RUNNER_TOOL_CACHE}"
+
+cd $RUNNER_TOOL_CACHE
 curl -L -O https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
 tar xvzf OpenSSL_1_0_2p.tar.gz
 cd openssl-OpenSSL_1_0_2p
@@ -15,7 +17,7 @@ sudo make install
 
 sudo apt-get update
 sudo apt-get purge 'php*'
-sudo apt-get install -y libcurl4-openssl-dev libjpeg-dev re2c libxml2-dev \
+sudo apt-get install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
      zlib1g-dev libzip-dev libpq-dev libpq5 postgresql-client mysql-client
 
