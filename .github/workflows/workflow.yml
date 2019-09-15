@@ -27,6 +27,21 @@ jobs:
     - name: npm test
       run: npm test
 
+    - name: setup phpenv
+      if: matrix.php <= 5.5
+      run: |
+        git clone https://github.com/phpenv/phpenv.git ~/.phpenv
+        export PATH="$HOME/.phpenv/bin:$PATH"
+        eval "$(phpenv init -)"
+        phpenv
+
+    - name: setup php-build
+      if: matrix.php <= 5.5
+      run: |
+        export PATH="$HOME/.phpenv/bin:$PATH"
+        eval "$(phpenv init -)"
+        git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
+
     - name: Setup PHP
       uses: ./
       with:
