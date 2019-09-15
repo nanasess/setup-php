@@ -7,6 +7,9 @@ version=$1
 
 sudo apt-get update
 sudo apt-get purge 'php*'
+sudo apt-get install -y libcurl4-openssl-dev libjpeg-dev re2c libxml2-dev \
+     libtidy-dev libxslt-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
+     zlib1g-dev libzip-dev libpq-dev libpq5 postgresql-client mysql-client
 
 export PATH="$HOME/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
