@@ -5,11 +5,19 @@ set -eo pipefail
 release=$(lsb_release -cs)
 version=$1
 
+cd /tmp
+curl -L -O https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
+tar xvzf OpenSSL_1_0_2p.tar.gz
+cd openssl-OpenSSL_1_0_2p
+./config -fPIC shared --prefix=/usr/local/ --openssldir=/usr/local/openssl
+make && make test
+sudo make install
+
 sudo apt-get update
 sudo apt-get purge 'php*'
 sudo apt-get install -y libcurl4-openssl-dev libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
-     libssl-dev zlib1g-dev libzip-dev libpq-dev libpq5 postgresql-client mysql-client
+     zlib1g-dev libzip-dev libpq-dev libpq5 postgresql-client mysql-client
 
 sudo ln -s /usr/include/x86_64-linux-gnu/curl /usr/local/include/curl
 
