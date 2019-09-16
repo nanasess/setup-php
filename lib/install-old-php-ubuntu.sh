@@ -71,6 +71,9 @@ esac
 
 phpenv install -v -s $MINOR_VERSION
 
+# disable to xdebug
+rm $(phpenv root)/versions/${MINOR_VERSION}/etc/conf.d/xdebug.ini
+
 sudo update-alternatives --install /usr/bin/php php $(phpenv root)/versions/${MINOR_VERSION}/bin/php 10
 sudo update-alternatives --install /usr/bin/phar phar $(phpenv root)/versions/${MINOR_VERSION}/bin/phar 10
 # sudo update-alternatives --install /usr/bin/phpdbg phpdbg $(phpenv root)/versions/${MINOR_VERSION}/bin/phpdbg 10
