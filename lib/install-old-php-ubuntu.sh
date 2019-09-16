@@ -53,7 +53,7 @@ cat <<EOF > $(phpenv root)/plugins/php-build/share/php-build/default_configure_o
 --enable-bcmath
 --enable-phpdbg
 --with-freetype-dir=/usr
- --with-pdo-pgsql
+--with-pdo-pgsql
 EOF
 
 export PHP_BUILD_EXTRA_MAKE_ARGUMENTS="-j$(nproc)"
