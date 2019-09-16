@@ -27,16 +27,27 @@ jobs:
     - name: npm test
       run: npm test
 
-    - name: setup OpenSSL 1.0.2p
+    - name: check to RUNNER_TOOL_CACHE
+      run: ls -al $RUNNER_TOOL_CACHE
+
+    # - name: setup OpenSSL 1.0.2p
+    #   if: matrix.php <= 5.5
+    #   run: |
+    #     cd $RUNNER_TOOL_CACHE
+    #     curl -L -O https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
+    #     tar xvzf OpenSSL_1_0_2p.tar.gz
+    #     cd openssl-OpenSSL_1_0_2p
+    #     ./config -fPIC shared --prefix=/usr/local/ --openssldir=/usr/local/openssl
+    #     make && make test
+    #     sudo make install
+    - name: setup PostgreSQL9
       if: matrix.php <= 5.5
       run: |
-        cd $RUNNER_TOOL_CACHE
-        curl -L -O https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
-        tar xvzf OpenSSL_1_0_2p.tar.gz
-        cd openssl-OpenSSL_1_0_2p
-        ./config -fPIC shared --prefix=/usr/local/ --openssldir=/usr/local/openssl
-        make && make test
-        sudo make install
+        dpkg -l | grep postgres | cut -d' ' -f3 | xargs sudo apt --purge remove -y
+        sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+        curl -L https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+        sudo apt-get update
+        sudo apt-get install libpq-dev libpq5 postgresql-client-9.3
 
     - name: setup phpenv
       if: matrix.php <= 5.5
@@ -57,10 +68,6 @@ jobs:
       uses: ./
       with:
         php-version: ${{ matrix.php}}
-
-    - name: check to pg_config
-      if: matrix.php <= 5.5
-      run: /usr/bin/pg_config
 
     - name: php --version
       run: |
