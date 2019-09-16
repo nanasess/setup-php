@@ -7,14 +7,6 @@ version=$1
 
 echo "RUNNER_TOOL_CACHE: ${RUNNER_TOOL_CACHE}"
 
-cd $RUNNER_TOOL_CACHE
-curl -L -O https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
-tar xvzf OpenSSL_1_0_2p.tar.gz
-cd openssl-OpenSSL_1_0_2p
-./config -fPIC shared --prefix=/usr/local/ --openssldir=/usr/local/openssl
-make && make test
-sudo make install
-
 sudo apt-get update
 sudo apt-get purge 'php*'
 sudo apt-get install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \

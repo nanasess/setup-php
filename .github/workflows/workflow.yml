@@ -27,6 +27,17 @@ jobs:
     - name: npm test
       run: npm test
 
+    - name: setup OpenSSL 1.0.2p
+      if: matrix.php <= 5.5
+      run: |
+        cd $RUNNER_TOOL_CACHE
+        curl -L -O https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
+        tar xvzf OpenSSL_1_0_2p.tar.gz
+        cd openssl-OpenSSL_1_0_2p
+        ./config -fPIC shared --prefix=/usr/local/ --openssldir=/usr/local/openssl
+        make && make test
+        sudo make install
+
     - name: setup phpenv
       if: matrix.php <= 5.5
       run: |
