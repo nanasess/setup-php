@@ -59,13 +59,28 @@ EOF
 export PHP_BUILD_EXTRA_MAKE_ARGUMENTS="-j$(nproc)"
 export PHP_BUILD_KEEP_OBJECT_FILES="on"
 
+MINOR_VERSION=$version
 case "$version" in
     "5.4" )
-        phpenv install -v -s 5.4.45
+        MINOR_VERSION="5.4.45"
         ;;
     "5.5" )
-        phpenv install -v -s 5.5.38
+        MINOR_VERSION="5.5.38"
         ;;
 esac
+
+phpenv install -v -s $MINOR_VERSION
+
+sudo update-alternatives --install /usr/bin/php php $(phpenv root)/versions/${MINOR_VERSION}/bin/php 10
+sudo update-alternatives --install /usr/bin/phar phar $(phpenv root)/versions/${MINOR_VERSION}/bin/phar 10
+# sudo update-alternatives --install /usr/bin/phpdbg phpdbg $(phpenv root)/versions/${MINOR_VERSION}/bin/phpdbg 10
+sudo update-alternatives --install /usr/bin/php-cgi php-cgi $(phpenv root)/versions/${MINOR_VERSION}/bin/php-cgi 10
+sudo update-alternatives --install /usr/bin/phar.phar phar.phar $(phpenv root)/versions/${MINOR_VERSION}/bin/phar.phar 10
+
+sudo update-alternatives --set php $(phpenv root)/versions/${MINOR_VERSION}/bin/php
+sudo update-alternatives --set phar $(phpenv root)/versions/${MINOR_VERSION}/bin/phar
+# sudo update-alternatives --set phpdbg $(phpenv root)/versions/${MINOR_VERSION}/bin/phpdbg
+sudo update-alternatives --set php-cgi $(phpenv root)/versions/${MINOR_VERSION}/bin/php-cgi
+sudo update-alternatives --set phar.phar $(phpenv root)/versions/${MINOR_VERSION}/bin/phar.phar
 
 php --version
