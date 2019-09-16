@@ -9,6 +9,15 @@ This action sets up a PHP environment for use in actions by:
 - optionally installing a version of PHP and adding to PATH.
 - registering problem matchers for error output
 
+## PHP version support
+
+- 5.4
+- 5.5
+- 5.6
+- 7.1
+- 7.2
+- 7.3
+
 # Usage
 
 See [action.yml](action.yml)
