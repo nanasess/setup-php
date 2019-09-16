@@ -18,8 +18,45 @@ sudo ln -s /usr/include/x86_64-linux-gnu/curl /usr/local/include/curl
 export PATH="$RUNNER_TOOL_CACHE/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
 
+cat <<EOF > $(phpenv root)/plugins/php-build/share/php-build/default_configure_options
+--without-pear
+--with-gd
+--enable-sockets
+--with-jpeg-dir=/usr
+--with-png-dir=/usr
+--enable-exif
+--enable-zip
+--with-zlib
+--with-zlib-dir=/usr
+--with-bz2
+--enable-intl
+--with-kerberos
+--enable-soap
+--enable-xmlreader
+--with-xsl
+--enable-ftp
+--enable-cgi
+--with-curl=/usr
+--with-tidy
+--with-xmlrpc
+--enable-sysvsem
+--enable-sysvshm
+--enable-shmop
+--with-mysqli=mysqlnd
+--with-pdo-mysql=mysqlnd
+--with-pdo-sqlite
+--enable-pcntl
+--with-readline
+--enable-mbstring
+--disable-debug
+--enable-fpm
+--enable-bcmath
+--enable-phpdbg
+--with-freetype-dir=/usr
+ --with-pdo-pgsql
+EOF
+
 export PHP_BUILD_EXTRA_MAKE_ARGUMENTS="-j$(nproc)"
-export PHP_BUILD_CONFIGURE_OPTS="--with-freetype-dir=/usr --with-pdo-pgsql"
 export PHP_BUILD_KEEP_OBJECT_FILES="on"
 
 case "$version" in
