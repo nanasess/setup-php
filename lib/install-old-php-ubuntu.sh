@@ -7,6 +7,11 @@ version=$1
 
 echo "RUNNER_TOOL_CACHE: ${RUNNER_TOOL_CACHE}"
 
+git clone https://github.com/phpenv/phpenv.git $RUNNER_TOOL_CACHE/.phpenv
+export PATH="$RUNNER_TOOL_CACHE/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"
+git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
+
 sudo apt-get update
 # sudo apt-get purge 'php*'
 sudo apt-get install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
