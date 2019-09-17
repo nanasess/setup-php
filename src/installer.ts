@@ -4,6 +4,12 @@ import * as semver from 'semver';
 
 export async function installPhp(version: string) {
   if (process.platform === 'linux') {
-    await exec.exec(path.join(__dirname, 'install-php-ubuntu.sh'), [version]);
+    if (Number(version) >= 5.6) {
+      await exec.exec(path.join(__dirname, 'install-php-ubuntu.sh'), [version]);
+    } else {
+      await exec.exec(path.join(__dirname, 'install-old-php-ubuntu.sh'), [
+        version
+      ]);
+    }
   }
 }
