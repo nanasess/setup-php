@@ -5,6 +5,28 @@ set -eo pipefail
 release=$(lsb_release -cs)
 version=$1
 
+install_openssl1_0()
+{
+    cd /tmp
+    curl -L -O https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
+    tar xf OpenSSL_1_0_2p.tar.gz
+    cd openssl-OpenSSL_1_0_2p
+    ./config -fPIC shared --prefix=/usr/local --openssldir=/usr/local/openssl
+    make -j $(nproc)
+    sudo make install
+}
+
+install_postgresql()
+{
+    cd /tmp
+    curl -L -O https://ftp.postgresql.org/pub/source/v9.6.15/postgresql-9.6.15.tar.bz2
+    tar xf postgresql-9.6.15.tar.bz2
+    cd postgresql-9.6.15
+    ./configure --prefix=/usr/local
+    make -j $(nproc)
+    sudo make install
+}
+
 echo "RUNNER_TOOL_CACHE: ${RUNNER_TOOL_CACHE}"
 
 git clone https://github.com/phpenv/phpenv.git $RUNNER_TOOL_CACHE/.phpenv
@@ -16,9 +38,12 @@ sudo apt-get update
 # sudo apt-get purge 'php*'
 sudo apt-get install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
-     libpq-dev libpq5 zlib1g-dev libzip-dev mysql-client
+     zlib1g-dev libzip-dev mysql-client
 
 sudo ln -s /usr/include/x86_64-linux-gnu/curl /usr/local/include/curl
+
+install_openssl1_0
+install_postgresql
 
 export PATH="$RUNNER_TOOL_CACHE/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
@@ -36,11 +61,10 @@ cat <<EOF > $(phpenv root)/plugins/php-build/share/php-build/default_configure_o
 --with-bz2
 --enable-intl
 --with-kerberos
+--with-openssl=shared
 --enable-soap
 --enable-xmlreader
 --with-xsl
---enable-ftp
---enable-cgi
 --with-curl=/usr
 --with-tidy
 --with-xmlrpc
@@ -54,15 +78,17 @@ cat <<EOF > $(phpenv root)/plugins/php-build/share/php-build/default_configure_o
 --with-readline
 --enable-mbstring
 --disable-debug
---enable-fpm
 --enable-bcmath
---enable-phpdbg
 --with-freetype-dir=/usr
+--with-pgsql=/usr/local
 --with-pdo-pgsql
 EOF
 
 export PHP_BUILD_EXTRA_MAKE_ARGUMENTS="-j$(nproc)"
 export PHP_BUILD_KEEP_OBJECT_FILES="on"
+export PHP_BUILD_XDEBUG_ENABLE="off"
+export PHP_BUILD_TMPDIR=/tmp/php-build
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
 MINOR_VERSION=$version
 case "$version" in
@@ -75,9 +101,6 @@ case "$version" in
 esac
 
 phpenv install -v -s $MINOR_VERSION
-
-# disable to xdebug
-rm $(phpenv root)/versions/${MINOR_VERSION}/etc/conf.d/xdebug.ini
 
 sudo update-alternatives --install /usr/bin/php php $(phpenv root)/versions/${MINOR_VERSION}/bin/php 10
 sudo update-alternatives --install /usr/bin/phar phar $(phpenv root)/versions/${MINOR_VERSION}/bin/phar 10
