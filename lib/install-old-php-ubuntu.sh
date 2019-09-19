@@ -32,7 +32,7 @@ install_ext_openssl()
     cd $PHP_BUILD_TMPDIR/source/$MINOR_VERSION/ext/openssl
     cp config0.m4 config.m4
     $(phpenv root)/versions/${MINOR_VERSION}/bin/phpize
-    ./configure
+    ./configure --with-php-config=$(phpenv root)/versions/${MINOR_VERSION}/bin/php-config
     make -j $(nproc)
     sudo make install
     echo "extension=openssl.so" > $(phpenv root)/versions/${MINOR_VERSION}/etc/conf.d/openssl.ini
@@ -72,7 +72,6 @@ cat <<EOF > $(phpenv root)/plugins/php-build/share/php-build/default_configure_o
 --with-bz2
 --enable-intl
 --with-kerberos
---with-openssl=shared
 --enable-soap
 --enable-xmlreader
 --with-xsl
