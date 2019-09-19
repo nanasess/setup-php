@@ -27,6 +27,17 @@ install_postgresql()
     sudo make install
 }
 
+install_ext_openssl()
+{
+    cd $PHP_BUILD_TMPDIR/source/$MINOR_VERSION/ext/openssl
+    cp config0.m4 config.m4
+    $(phpenv root)/versions/${MINOR_VERSION}/bin/phpize
+    ./configure
+    make -j $(nproc)
+    sudo make install
+    echo "extension=openssl.so" > $(phpenv root)/versions/${MINOR_VERSION}/etc/conf.d/openssl.ini
+}
+
 echo "RUNNER_TOOL_CACHE: ${RUNNER_TOOL_CACHE}"
 
 git clone https://github.com/phpenv/phpenv.git $RUNNER_TOOL_CACHE/.phpenv
@@ -101,6 +112,7 @@ case "$version" in
 esac
 
 phpenv install -v -s $MINOR_VERSION
+install_ext_openssl
 
 sudo update-alternatives --install /usr/bin/php php $(phpenv root)/versions/${MINOR_VERSION}/bin/php 10
 sudo update-alternatives --install /usr/bin/phar phar $(phpenv root)/versions/${MINOR_VERSION}/bin/phar 10
@@ -114,4 +126,4 @@ sudo update-alternatives --set phar $(phpenv root)/versions/${MINOR_VERSION}/bin
 sudo update-alternatives --set php-cgi $(phpenv root)/versions/${MINOR_VERSION}/bin/php-cgi
 sudo update-alternatives --set phar.phar $(phpenv root)/versions/${MINOR_VERSION}/bin/phar.phar
 
-php --version
+php -i
