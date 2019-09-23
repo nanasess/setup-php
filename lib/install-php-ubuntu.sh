@@ -5,17 +5,22 @@ set -eo pipefail
 release=$(lsb_release -cs)
 version=$1
 
+# see https://www.cyberciti.biz/faq/how-to-speed-up-apt-get-apt-command-ubuntu-linux/
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:apt-fast/stable
+
 sudo apt-get update
+sudo apt-get -y install apt-fast
+
 # Suppression to startup failure
-sudo apt-get purge php${version}-fpm
+sudo apt-fast purge php${version}-fpm
 
 if [ $version = '5.6' ]
 then
-    sudo apt install -y software-properties-common
     sudo add-apt-repository ppa:ondrej/php
-    sudo apt-get install -y build-essential debconf-utils unzip autogen autoconf libtool pkg-config
+    sudo apt-fast install -y build-essential debconf-utils unzip autogen autoconf libtool pkg-config
 
-    sudo apt-get install -y \
+    sudo apt-fast install -y \
          php${version}-bcmath \
          php${version}-bz2 \
          php${version}-cgi \
@@ -40,7 +45,7 @@ then
          php${version}-zip
 fi
 
-sudo apt-get install -y \
+sudo apt-fast install -y \
      php${version}-dev \
      php${version}-phpdbg \
      php${version}-intl
