@@ -26,7 +26,7 @@ Basic:
 ```yaml
 steps:
 - uses: actions/checkout@master
-- uses: nanasess/setup-php@v2
+- uses: nanasess/setup-php@master
   with:
     php-version: '7.3' # Middle version of a PHP version to use, using APT package version and phpenv version syntax.
 - run: php my_script.php
@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Setup PHP
-        uses: nanasess/setup-php@v2
+        uses: nanasess/setup-php@master
         with:
           php-version: ${{ matrix.php }}
       - run: php my_script.php
