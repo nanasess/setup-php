@@ -5,12 +5,7 @@ set -eo pipefail
 release=$(lsb_release -cs)
 version=$1
 
-# see https://www.cyberciti.biz/faq/how-to-speed-up-apt-get-apt-command-ubuntu-linux/
-sudo apt-get install software-properties-common
-sudo add-apt-repository ppa:apt-fast/stable
-
-sudo apt-get update
-sudo apt-get -y install apt-fast
+sudo apt-fast update
 
 # Suppression to startup failure
 sudo apt-fast purge php${version}-fpm
