@@ -45,9 +45,10 @@ export PATH="$RUNNER_TOOL_CACHE/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
 git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
 
-sudo apt-get update
+sudo apt-fast update
+
 # sudo apt-get purge 'php*'
-sudo apt-get install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
+sudo apt-fast install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
      zlib1g-dev libzip-dev mysql-client
 
