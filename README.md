@@ -2,6 +2,8 @@
 
 <p align="left">
   <a href="https://github.com/nanasess/setup-php"><img alt="GitHub Actions status" src="https://github.com/nanasess/setup-php/workflows/Main%20workflow/badge.svg"></a>
+  <a href="https://github.com/nanasess/setup-php/blob/master/LICENSE"><img alt="LICENSE" src="https://img.shields.io/badge/license-MIT-428f7e.svg"></a>
+  <a href="#php-version-support"><img alt="PHP Versions Supported" src="https://img.shields.io/badge/php-%3E%3D%205.4-8892BF.svg"></a>
 </p>
 
 This action sets up a PHP environment for use in actions by:
