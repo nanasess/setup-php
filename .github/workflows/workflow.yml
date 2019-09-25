@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        operating-system: [ubuntu-18.04, ubuntu-16.04]
+        operating-system: [ubuntu-18.04, ubuntu-16.04, windows-2019, windows-2016]
         php: [5.4, 5.5, 5.6, 7.1, 7.2, 7.3]
 
     steps:
@@ -24,9 +24,11 @@ jobs:
       run: npm install
 
     - name: Lint
+      if: matrix.operating-system == 'ubuntu-18.04' || matrix.operating-system == 'ubuntu-16.04'
       run: npm run format-check
 
     - name: npm test
+      if: matrix.operating-system == 'ubuntu-18.04' || matrix.operating-system == 'ubuntu-16.04'
       run: npm test
 
     - name: Setup PHP
@@ -36,6 +38,6 @@ jobs:
 
     - name: php --version
       run: |
-        php --version
         php -i
+        php -m
 

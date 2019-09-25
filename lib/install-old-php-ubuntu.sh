@@ -38,10 +38,8 @@ install_ext_openssl()
     echo "extension=openssl.so" > $(phpenv root)/versions/${MINOR_VERSION}/etc/conf.d/openssl.ini
 }
 
-echo "RUNNER_TOOL_CACHE: ${RUNNER_TOOL_CACHE}"
-
-git clone https://github.com/phpenv/phpenv.git $RUNNER_TOOL_CACHE/.phpenv
-export PATH="$RUNNER_TOOL_CACHE/.phpenv/bin:$PATH"
+git clone https://github.com/phpenv/phpenv.git $HOME/.phpenv
+export PATH="$HOME/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
 git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
 
@@ -56,9 +54,6 @@ sudo ln -s /usr/include/x86_64-linux-gnu/curl /usr/local/include/curl
 
 install_openssl1_0
 install_postgresql
-
-export PATH="$RUNNER_TOOL_CACHE/.phpenv/bin:$PATH"
-eval "$(phpenv init -)"
 
 cat <<EOF > $(phpenv root)/plugins/php-build/share/php-build/default_configure_options
 --without-pear
