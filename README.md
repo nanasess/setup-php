@@ -18,6 +18,11 @@ This action sets up a PHP environment for use in actions by:
 - 7.2
 - 7.3
 
+## OS/Platform support
+
+- ubuntu-latest, ubuntu-18.04, or ubuntu-16.04
+- windows-latest, windows-2019, or windows-2016
+
 # Usage
 
 See [action.yml](action.yml)
@@ -28,7 +33,7 @@ steps:
 - uses: actions/checkout@master
 - uses: nanasess/setup-php@master
   with:
-    php-version: '7.3' # Middle version of a PHP version to use, using APT package version and phpenv version syntax.
+    php-version: '7.3' # Middle version of a PHP version to use
 - run: php my_script.php
 ```
 
@@ -36,9 +41,10 @@ Matrix Testing:
 ```yaml
 jobs:
   build:
-    runs-on: ubuntu-16.04
+    runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
+        operating-system: [ ubuntu-18.04, windows-2019 ]
         php: [ '5.4', '5.5', '5.6', '7.1', '7.2', '7.3' ]
     name: PHP ${{ matrix.php }} sample
     steps:
