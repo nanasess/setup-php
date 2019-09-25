@@ -12,6 +12,9 @@ export async function installPhp(version: string) {
       ]);
     }
   } else if (process.platform === 'win32') {
-    await exec.exec(path.join(__dirname, 'install-php-windows.ps1'));
+    await exec.exec(
+      'powershell -File ' +
+        path.join(__dirname, 'install-php-windows.ps1 -version ' + version)
+    );
   }
 }

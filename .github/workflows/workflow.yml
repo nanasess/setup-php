@@ -38,6 +38,6 @@ jobs:
 
     - name: php --version
       run: |
-        php --version
         php -i
+        php -m
 
