@@ -24,9 +24,11 @@ jobs:
       run: npm install
 
     - name: Lint
+      if: matrix.operating-system == 'ubuntu-18.04' || matrix.operating-system == 'ubuntu-16.04'
       run: npm run format-check
 
     - name: npm test
+      if: matrix.operating-system == 'ubuntu-18.04' || matrix.operating-system == 'ubuntu-16.04'
       run: npm test
 
     - name: Setup PHP
