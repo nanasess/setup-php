@@ -5,10 +5,11 @@ set -eo pipefail
 release=$(lsb_release -cs)
 version=$1
 
-sudo apt-fast update
-
 # Suppression to startup failure
-sudo apt-fast purge php${version}-fpm
+if [ -f /lib/systemd/system/php${version}-fpm.service ]
+then
+    sudo systemctl disable php${version}-fpm
+fi
 
 if [ $version = '5.6' ]
 then
