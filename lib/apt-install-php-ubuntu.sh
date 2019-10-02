@@ -52,5 +52,5 @@ sudo update-alternatives --set php-cgi /usr/bin/php-cgi${version}
 sudo update-alternatives --set phar.phar /usr/bin/phar.phar${version}
 sudo phpdismod -s cli xdebug
 
-echo "opcache.enable_cli=1" >> /etc/php/${version}/cli/conf.d/10-opcache.ini
-echo "apc.enable_cli=1" >> /etc/php/5.6/${version}/conf.d/20-apcu.ini
+sudo bash -c 'echo "opcache.enable_cli=1" >> /etc/php/'$version'/cli/conf.d/10-opcache.ini'
+sudo bash -c 'echo "apc.enable_cli=1" >> /etc/php/'$version'/cli/conf.d/20-apcu.ini'
