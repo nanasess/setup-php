@@ -30,8 +30,8 @@ describe('example tests', () => {
     expect(installer.convertInstallVersion('5.6')).toBe('5.6.40');
     expect(installer.convertInstallVersion('7')).toBe('7');
     expect(installer.convertInstallVersion('7.1')).toBe('7.1.32');
-    expect(installer.convertInstallVersion('7.2')).toBe('7.2.22');
-    expect(installer.convertInstallVersion('7.3')).toBe('7.3.9');
+    expect(installer.convertInstallVersion('7.2')).toBe('7.2.23');
+    expect(installer.convertInstallVersion('7.3')).toBe('7.3.10');
     expect(installer.convertInstallVersion('7.3.8')).toBe('7.3.8');
   });
 });
