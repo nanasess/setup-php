@@ -1,6 +1,18 @@
 ## Rest of the file pulled from https://github.com/actions/setup-python/blob/master/.github/workflows/workflow.yml
 name: Main workflow
-on: [ push, pull_request ]
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+    paths:
+      - '**'
+      - '!*.md'
+  pull_request:
+    paths:
+      - '**'
+      - '!*.md'
 jobs:
   run:
     name: Run
