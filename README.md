@@ -16,6 +16,7 @@ This action sets up a PHP environment for use in actions by:
 - 5.4
 - 5.5
 - 5.6
+- 7.0
 - 7.1
 - 7.2
 - 7.3
