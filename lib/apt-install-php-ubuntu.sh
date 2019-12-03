@@ -51,8 +51,8 @@ sudo apt-fast install -y \
 sudo update-alternatives --set php /usr/bin/php${version}
 sudo update-alternatives --set phar /usr/bin/phar${version}
 sudo update-alternatives --set phpdbg /usr/bin/phpdbg${version}
-sudo update-alternatives --set php-cgi /usr/bin/php-cgi${version}
-sudo update-alternatives --set phar.phar /usr/bin/phar.phar${version}
+# sudo update-alternatives --set php-cgi /usr/bin/php-cgi${version}
+# sudo update-alternatives --set phar.phar /usr/bin/phar.phar${version}
 sudo phpdismod -s cli xdebug
 
 sudo bash -c 'echo "opcache.enable_cli=1" >> /etc/php/'$version'/cli/conf.d/10-opcache.ini'
