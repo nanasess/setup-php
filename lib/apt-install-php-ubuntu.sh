@@ -11,6 +11,8 @@ then
     sudo systemctl disable php${version}-fpm
 fi
 
+sudo apt-get update
+
 if [ $version = '5.6' ]
 then
     sudo add-apt-repository ppa:ondrej/php
