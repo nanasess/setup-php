@@ -11,6 +11,8 @@ then
     sudo systemctl disable php${version}-fpm
 fi
 
+sudo apt-get update
+
 if [ $version = '5.6' ]
 then
     sudo add-apt-repository ppa:ondrej/php
@@ -46,11 +48,18 @@ sudo apt-fast install -y \
      php${version}-phpdbg \
      php${version}-intl
 
+# see https://github.com/nanasess/setup-php/issues/29
+if [ $version = '7.4' ]
+then
+    sudo apt-fast install -y \
+         php${version}-xml
+fi
+
 sudo update-alternatives --set php /usr/bin/php${version}
 sudo update-alternatives --set phar /usr/bin/phar${version}
 sudo update-alternatives --set phpdbg /usr/bin/phpdbg${version}
-sudo update-alternatives --set php-cgi /usr/bin/php-cgi${version}
-sudo update-alternatives --set phar.phar /usr/bin/phar.phar${version}
+# sudo update-alternatives --set php-cgi /usr/bin/php-cgi${version}
+# sudo update-alternatives --set phar.phar /usr/bin/phar.phar${version}
 sudo phpdismod -s cli xdebug
 
 sudo bash -c 'echo "opcache.enable_cli=1" >> /etc/php/'$version'/cli/conf.d/10-opcache.ini'

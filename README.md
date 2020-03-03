@@ -16,9 +16,11 @@ This action sets up a PHP environment for use in actions by:
 - 5.4
 - 5.5
 - 5.6
+- 7.0
 - 7.1
 - 7.2
 - 7.3
+- 7.4
 
 *Patch version can also be set. e.g. 7.2.11*
 
@@ -37,7 +39,7 @@ steps:
 - uses: actions/checkout@master
 - uses: nanasess/setup-php@master
   with:
-    php-version: '7.3'
+    php-version: '7.4'
 - run: php my_script.php
 ```
 
@@ -49,7 +51,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ ubuntu-18.04, windows-2019 ]
-        php: [ '5.4', '5.5', '5.6', '7.1', '7.2', '7.3', '7.3.3' ]
+        php: [ '5.4', '5.5', '5.6', '7.1', '7.2', '7.3', '7.4', '7.3.3' ]
     name: PHP ${{ matrix.php }} sample
     steps:
       - uses: actions/checkout@master
