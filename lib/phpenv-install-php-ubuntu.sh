@@ -96,6 +96,20 @@ export PHP_BUILD_XDEBUG_ENABLE="off"
 export PHP_BUILD_TMPDIR=/tmp/php-build
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
+if [ ! -d "${PHP_BUILD_TMPDIR}/packages" ]
+then
+    mkdir -p ${PHP_BUILD_TMPDIR}/packages
+fi
+if [ ! -d "${PHP_BUILD_TMPDIR}/source" ]
+then
+    mkdir -p ${PHP_BUILD_TMPDIR}/source
+fi
+if [ ! -d "${PHP_BUILD_TMPDIR}/source/${version}" ]
+then
+    mkdir -p ${PHP_BUILD_TMPDIR}/source/${version}
+fi
+wget --retry-connrefused --tries=10 --timeout=30  --inet4-only -P ${PHP_BUILD_TMPDIR}/packages/ https://secure.php.net/distributions/php-${version}.tar.bz2
+tar -x --strip-components 1 -f ${PHP_BUILD_TMPDIR}/packages/php-${version}.tar.bz2 -C ${PHP_BUILD_TMPDIR}/source/${version}
 
 phpenv install -v -s $version
 install_ext_openssl
