@@ -46,14 +46,8 @@ fi
 sudo apt-fast install -y \
      php${version}-dev \
      php${version}-phpdbg \
-     php${version}-intl
-
-# see https://github.com/nanasess/setup-php/issues/29
-if [ $version = '7.4' ]
-then
-    sudo apt-fast install -y \
-         php${version}-xml
-fi
+     php${version}-intl \
+     php${version}-xml
 
 sudo update-alternatives --set php /usr/bin/php${version}
 sudo update-alternatives --set phar /usr/bin/phar${version}
