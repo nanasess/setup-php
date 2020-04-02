@@ -8,7 +8,7 @@ version=$1
 install_openssl1_0()
 {
     cd /tmp
-    curl -L -O https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
+    wget https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
     tar xf OpenSSL_1_0_2p.tar.gz
     cd openssl-OpenSSL_1_0_2p
     ./config -fPIC shared --prefix=/usr/local --openssldir=/usr/local/openssl
@@ -19,7 +19,7 @@ install_openssl1_0()
 install_postgresql()
 {
     cd /tmp
-    curl -L -O https://ftp.postgresql.org/pub/source/v9.6.15/postgresql-9.6.15.tar.bz2
+    wget https://ftp.postgresql.org/pub/source/v9.6.15/postgresql-9.6.15.tar.bz2
     tar xf postgresql-9.6.15.tar.bz2
     cd postgresql-9.6.15
     ./configure --prefix=/usr/local
@@ -46,6 +46,11 @@ git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-buil
 sudo apt-fast update
 
 # sudo apt-get purge 'php*'
+if [ $release == 'xenial' ]
+then
+    sudo apt-fast purge 'libssl1.1'
+    sudo apt-fast purge 'postgresql*'
+fi
 sudo apt-fast install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
      zlib1g-dev libzip-dev mysql-client
