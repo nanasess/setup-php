@@ -42,6 +42,7 @@ jobs:
         version: 10.x
 
     - name: npm install
+      if: matrix.operating-system == 'ubuntu-18.04' || matrix.operating-system == 'ubuntu-16.04'
       run: npm install
 
     - name: Lint
