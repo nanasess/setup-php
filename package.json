@@ -1,6 +1,6 @@
 {
   "name": "setup-php",
-  "version": "3.0.2",
+  "version": "3.0.4",
   "private": true,
   "description": "setup php action",
   "main": "lib/setup-php.js",
@@ -22,7 +22,7 @@
   "author": "nanasess",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.0.0",
+    "@actions/core": "^1.2.6",
     "@actions/exec": "^1.0.0",
     "@actions/github": "^1.0.0",
     "@actions/io": "^1.0.0",
