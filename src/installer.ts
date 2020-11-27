@@ -53,11 +53,11 @@ export function convertInstallVersion(version: string): string {
     case '7.1':
       return '7.1.33';
     case '7.2':
-      return '7.2.29';
+      return '7.2.34';
     case '7.3':
-      return '7.3.16';
+      return '7.3.25';
     case '7.4':
-      return '7.4.4';
+      return '7.4.13';
   }
   return version;
 }

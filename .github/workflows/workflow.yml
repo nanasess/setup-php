@@ -16,20 +16,42 @@ on:
 jobs:
   run:
     name: Run
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        operating-system: [ubuntu-18.04, ubuntu-16.04, windows-2019, windows-2016]
-        php: [5.4, 5.5, 5.6, 7.1, 7.2, 7.4, 7.3, 7.2.11, 7.2.12]
+        os: [ubuntu-20.04, ubuntu-18.04, ubuntu-16.04, windows-2019, windows-2016]
+        php: [5.4, 5.5, 5.6, 7.1, 7.2, 7.4, 7.3, 7.2.11, 7.2.12, 7.4.12]
         exclude:
-          - operating-system: windows-2019
+          - os: windows-2019
             php: 7.2.11
-          - operating-system: windows-2016
+          - os: windows-2019
+            php: 7.4.12
+          - os: windows-2016
             php: 7.2.11
-          - operating-system: ubuntu-18.04
+          - os: windows-2016
+            php: 7.4.12
+          - os: ubuntu-18.04
             php: 7.2.12
-          - operating-system: ubuntu-16.04
+          - os: ubuntu-18.04
+            php: 7.4.12
+          - os: ubuntu-16.04
+            php: 5.4
+          - os: ubuntu-16.04
+            php: 5.5
+          - os: ubuntu-16.04
+            php: 7.2.11
+          - os: ubuntu-16.04
+            php: 7.2.12
+          - os: ubuntu-16.04
+            php: 7.4.12
+          - os: ubuntu-20.04
+            php: 5.4
+          - os: ubuntu-20.04
+            php: 5.5
+          - os: ubuntu-20.04
+            php: 7.2.11
+          - os: ubuntu-20.04
             php: 7.2.12
 
     steps:
@@ -42,15 +64,15 @@ jobs:
         version: 10.x
 
     - name: npm install
-      if: matrix.operating-system == 'ubuntu-18.04' || matrix.operating-system == 'ubuntu-16.04'
+      if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-16.04'
       run: npm install
 
     - name: Lint
-      if: matrix.operating-system == 'ubuntu-18.04' || matrix.operating-system == 'ubuntu-16.04'
+      if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-16.04'
       run: npm run format-check
 
     - name: npm test
-      if: matrix.operating-system == 'ubuntu-18.04' || matrix.operating-system == 'ubuntu-16.04'
+      if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-16.04'
       run: npm test
 
     - name: Setup PHP
