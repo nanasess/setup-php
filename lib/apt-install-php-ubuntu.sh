@@ -13,7 +13,7 @@ fi
 
 sudo apt-get update
 
-if [ $version = '5.6' ]
+if [[ $version = '5.6' ]] || [[ $release = 'focal' && `echo "$version < 7.4" | bc` == 1 ]]
 then
     sudo add-apt-repository ppa:ondrej/php
     sudo apt-fast install -y build-essential debconf-utils unzip autogen autoconf libtool pkg-config
