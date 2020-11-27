@@ -21,12 +21,13 @@ This action sets up a PHP environment for use in actions by:
 - 7.2
 - 7.3
 - 7.4
+- 8.0
 
 *Patch version can also be set. e.g. 7.2.11*
 
 ## OS/Platform support
 
-- ubuntu-latest, ubuntu-18.04, or ubuntu-16.04
+- ubuntu-latest, ubuntu-20.04, ubuntu-18.04, or ubuntu-16.04
 - windows-latest, windows-2019, or windows-2016
 
 # Usage
