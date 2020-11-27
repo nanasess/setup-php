@@ -13,7 +13,7 @@ fi
 
 sudo apt-get update
 
-if [[ $version = '5.6' ]] || [[ $release = 'focal' && `echo "$version < 7.4" | bc` == 1 ]]
+if [[ $version = '5.6' ]] || [[ $release = 'focal' && `echo "$version < 7.4 || $version >= 8.0" | bc` == 1 ]]
 then
     sudo add-apt-repository ppa:ondrej/php
     sudo apt-fast install -y build-essential debconf-utils unzip autogen autoconf libtool pkg-config
@@ -28,7 +28,6 @@ then
          php${version}-dba \
          php${version}-enchant \
          php${version}-gd \
-         php${version}-json \
          php${version}-mbstring \
          php${version}-mysql \
          php${version}-odbc \
@@ -38,9 +37,15 @@ then
          php${version}-soap \
          php${version}-sqlite3 \
          php${version}-xml \
-         php${version}-xmlrpc \
          php${version}-xsl \
          php${version}-zip
+fi
+
+if [[ $release = 'focal' && `echo "$version < 8.0" | bc` == 1 ]]
+then
+    sudo apt-fast install -y \
+         php${version}-json \
+         php${version}-xmlrpc
 fi
 
 sudo apt-fast install -y \

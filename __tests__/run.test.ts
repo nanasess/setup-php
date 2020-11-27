@@ -22,6 +22,8 @@ describe('example tests', () => {
     expect(installer.hasAptVersion('7.2')).toBe(true);
     expect(installer.hasAptVersion('7.3')).toBe(true);
     expect(installer.hasAptVersion('7.4')).toBe(true);
+    expect(installer.hasAptVersion('8.0')).toBe(true);
+    expect(installer.hasAptVersion(new Number('8').toFixed(1))).toBe(true);
   });
   it('convertInstallVersion tests', () => {
     expect(installer.convertInstallVersion('5')).toBe('5');
@@ -33,6 +35,7 @@ describe('example tests', () => {
     expect(installer.convertInstallVersion('7.2')).toBe('7.2.34');
     expect(installer.convertInstallVersion('7.3')).toBe('7.3.25');
     expect(installer.convertInstallVersion('7.4')).toBe('7.4.13');
+    expect(installer.convertInstallVersion('8.0')).toBe('8.0.0');
     expect(installer.convertInstallVersion('7.3.8')).toBe('7.3.8');
   });
 });

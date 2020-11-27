@@ -7,7 +7,7 @@ export async function installPhp(version: string) {
   if (process.platform === 'linux') {
     if (!hasPatchVersion(version) && hasAptVersion(version)) {
       await exec.exec(path.join(__dirname, 'apt-install-php-ubuntu.sh'), [
-        version
+        new Number(version).toFixed(1)
       ]);
     } else {
       await exec.exec(path.join(__dirname, 'phpenv-install-php-ubuntu.sh'), [
@@ -33,7 +33,7 @@ export function hasAptVersion(version: string): boolean {
       return false;
     }
   }
-  return semver.satisfies(Semver.version, '5.6 || <=7.4');
+  return semver.satisfies(Semver.version, '5.6 || <=7.4 || <= 8.0');
 }
 export function hasPatchVersion(version: string): boolean {
   const Semver = semver.coerce(version);
@@ -58,6 +58,8 @@ export function convertInstallVersion(version: string): string {
       return '7.3.25';
     case '7.4':
       return '7.4.13';
+    case '8.0':
+      return '8.0.0';
   }
   return version;
 }
