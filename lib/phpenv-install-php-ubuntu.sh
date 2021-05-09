@@ -51,9 +51,32 @@ then
     sudo apt-fast purge 'libssl1.1'
     sudo apt-fast purge 'postgresql*'
 fi
-sudo apt-fast install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
-     libtidy-dev libxslt-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
-     libonig-dev zlib1g-dev libzip-dev mysql-client
+sudo apt-fast install -y libcurl4-nss-dev
+echo "libcurl4-nss-dev"
+sudo apt-fast install -y libjpeg-dev
+echo "libjpeg-dev"
+sudo apt-fast install -y re2c
+echo "re2c"
+sudo apt-fast install -y libxml2-dev
+echo "libxml2-dev"
+sudo apt-fast install -y libtidy-dev
+echo "libtidy-dev"
+sudo apt-fast install -y libxslt-dev
+echo "libxslt-dev"
+sudo apt-fast install -y libmcrypt-dev
+echo "libmcrypt-dev"
+sudo apt-fast install -y libreadline-dev
+echo "libreadline-dev"
+sudo apt-fast install -y libfreetype6-dev
+echo "libfreetype6-dev"
+sudo apt-fast install -y libonig-dev
+echo "libonig-dev"
+sudo apt-fast install -y zlib1g-dev
+echo "zlib1g-dev"
+sudo apt-fast install -y libzip-dev
+echo "libzip-dev"
+sudo apt-fast install -y mysql-client
+echo "mysql-client"
 
 sudo ln -s /usr/include/x86_64-linux-gnu/curl /usr/local/include/curl
 
