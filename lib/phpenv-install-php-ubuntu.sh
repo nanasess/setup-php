@@ -73,8 +73,8 @@ sudo apt-fast install -y libonig-dev
 echo "libonig-dev"
 sudo apt-fast install -y zlib1g-dev
 echo "zlib1g-dev"
-sudo apt-fast install -y libzip-dev
-echo "libzip-dev"
+#sudo apt-fast install -y libzip-dev
+#echo "libzip-dev"
 sudo apt-fast install -y mysql-client
 echo "mysql-client"
 
