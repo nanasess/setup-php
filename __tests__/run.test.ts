@@ -33,9 +33,9 @@ describe('example tests', () => {
     expect(installer.convertInstallVersion('7')).toBe('7');
     expect(installer.convertInstallVersion('7.1')).toBe('7.1.33');
     expect(installer.convertInstallVersion('7.2')).toBe('7.2.34');
-    expect(installer.convertInstallVersion('7.3')).toBe('7.3.27');
-    expect(installer.convertInstallVersion('7.4')).toBe('7.4.16');
-    expect(installer.convertInstallVersion('8.0')).toBe('8.0.3');
+    expect(installer.convertInstallVersion('7.3')).toBe('7.3.28');
+    expect(installer.convertInstallVersion('7.4')).toBe('7.4.19');
+    expect(installer.convertInstallVersion('8.0')).toBe('8.0.6');
     expect(installer.convertInstallVersion('7.3.8')).toBe('7.3.8');
   });
 });
