@@ -1,6 +1,6 @@
 {
   "name": "setup-php",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "private": true,
   "description": "setup php action",
   "main": "lib/setup-php.js",
