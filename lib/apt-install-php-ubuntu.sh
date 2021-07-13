@@ -11,7 +11,19 @@ then
     sudo systemctl disable php${version}-fpm
 fi
 
-sudo apt-get update
+if !(type "apt-fast" > /dev/null 2>&1)
+then
+    sudo add-apt-repository ppa:apt-fast/stable
+    sudo apt-get update
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -y install apt-fast
+fi
+
+if !(type "bc" > /dev/null 2>&1)
+then
+    sudo apt-fast install -y bc
+fi
+
+sudo apt-fast update
 
 if [[ $version = '5.6' ]] || [[ `echo "$version < 7.4 || $version >= 8.0" | bc` == 1 ]]
 then
