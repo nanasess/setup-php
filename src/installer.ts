@@ -33,7 +33,7 @@ export function hasAptVersion(version: string): boolean {
       return false;
     }
   }
-  return semver.satisfies(Semver.version, '5.6 || <=7.4 || <= 8.0');
+  return semver.satisfies(Semver.version, '5.6 || <=7.4 || <= 8.1');
 }
 export function hasPatchVersion(version: string): boolean {
   const Semver = semver.coerce(version);
@@ -60,6 +60,8 @@ export function convertInstallVersion(version: string): string {
       return '7.4.19';
     case '8.0':
       return '8.0.6';
+    case '8.1':
+      return '8.1.2';
   }
   return version;
 }

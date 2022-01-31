@@ -41,7 +41,7 @@ then
          php${version}-zip
 fi
 
-if [[ $release = 'focal' && `echo "$version < 8.0" | bc` == 1 ]]
+if [[ $release = 'focal' && `echo "$version < 8.1" | bc` == 1 ]]
 then
     sudo apt-fast install -y \
          php${version}-json \
