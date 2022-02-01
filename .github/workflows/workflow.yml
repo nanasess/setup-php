@@ -68,6 +68,9 @@ jobs:
     - name: npm test
       if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
       run: npm test
+    - name: Debug
+      if: matrix.php == '8.0.3'
+      uses: mxschmitt/action-tmate@v3
 
     - name: Setup PHP
       uses: ./
