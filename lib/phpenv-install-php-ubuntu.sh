@@ -53,11 +53,15 @@ then
 fi
 sudo apt-fast install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
-     libonig-dev zlib1g-dev mysql-client
+     libonig-dev zlib1g-dev
 
+if [ $release == 'bionic' ]
+then
+    sudo apt-fast install -y mysql-client
+fi
 if [ $release == 'focal' ]
 then
-    sudo apt-fast install -y libzip-dev
+    sudo apt-fast install -y libzip-dev mariadb-client
 fi
 
 sudo ln -s /usr/include/x86_64-linux-gnu/curl /usr/local/include/curl
