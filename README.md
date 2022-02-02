@@ -22,6 +22,7 @@ This action sets up a PHP environment for use in actions by:
 - 7.3
 - 7.4
 - 8.0
+- 8.1
 
 *Patch version can also be set. e.g. 7.2.11*
 
