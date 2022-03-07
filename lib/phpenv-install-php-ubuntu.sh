@@ -8,7 +8,7 @@ version=$1
 install_openssl1_0()
 {
     cd /tmp
-    wget https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
+    curl -L --retry-connrefused --retry 10 --retry-delay 10 --max-time 30 -O https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz
     tar xf OpenSSL_1_0_2p.tar.gz
     cd openssl-OpenSSL_1_0_2p
     ./config -fPIC shared --prefix=/usr/local --openssldir=/usr/local/openssl
@@ -19,7 +19,7 @@ install_openssl1_0()
 install_postgresql()
 {
     cd /tmp
-    wget https://ftp.postgresql.org/pub/source/v9.6.15/postgresql-9.6.15.tar.bz2
+    curl -L --retry-connrefused --retry 10 --retry-delay 10 --max-time 30 -O https://ftp.postgresql.org/pub/source/v9.6.15/postgresql-9.6.15.tar.bz2
     tar xf postgresql-9.6.15.tar.bz2
     cd postgresql-9.6.15
     ./configure --prefix=/usr/local
@@ -122,7 +122,7 @@ if [ ! -d "${PHP_BUILD_TMPDIR}/source/${version}" ]
 then
     mkdir -p ${PHP_BUILD_TMPDIR}/source/${version}
 fi
-wget --retry-connrefused --tries=10 --timeout=30  --inet4-only -P ${PHP_BUILD_TMPDIR}/packages/ https://secure.php.net/distributions/php-${version}.tar.bz2
+curl -L --retry-connrefused --retry 10 --retry-delay 10 --max-time 30 -o ${PHP_BUILD_TMPDIR}/packages/php-${version}.tar.bz2 https://www.php.net/distributions/php-${version}.tar.bz2
 tar -x --strip-components 1 -f ${PHP_BUILD_TMPDIR}/packages/php-${version}.tar.bz2 -C ${PHP_BUILD_TMPDIR}/source/${version}
 
 phpenv install -v -s $version
