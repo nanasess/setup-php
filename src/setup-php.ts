@@ -7,7 +7,11 @@ async function run() {
     console.log(`##Installing PHP ${phpSpec}`);
     await installPhp(phpSpec);
   } catch (error) {
-    core.setFailed(error.message);
+    if (error instanceof Error) {
+      core.setFailed(error.message);
+    } else {
+      throw error;
+    }
   }
 }
 
