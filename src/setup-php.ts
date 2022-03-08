@@ -5,7 +5,10 @@ async function run() {
   try {
     const phpSpec = core.getInput('php-version', {required: true});
     console.log(`##Installing PHP ${phpSpec}`);
-    await installPhp(phpSpec);
+    const exitCode = await installPhp(phpSpec);
+    if (exitCode !== 0) {
+      throw new Error(`An error occurred while installing PHP(Code: ${exitCode}`);
+    }
   } catch (error) {
     if (error instanceof Error) {
       core.setFailed(error.message);

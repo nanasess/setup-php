@@ -4,6 +4,8 @@ Param(
 
 choco install -y php --force --version $version --package-parameters='"/InstallDir:C:\tools\php"""'
 
+Write-Host "`$LASTEXITCODE = $LASTEXITCODE"
+
 cd c:\tools\php
 copy php.ini-production php.ini
 Write-Output extension_dir='C:/tools/php/ext' | Add-Content php.ini -Encoding Default
@@ -19,3 +21,6 @@ Write-Output extension=php_pdo_sqlite.dll | Add-Content php.ini -Encoding Defaul
 Write-Output extension=php_pdo_mysql.dll | Add-Content php.ini -Encoding Default
 Write-Output extension=php_pdo_pgsql.dll | Add-Content php.ini -Encoding Default
 Write-Output extension=php_curl.dll | Add-Content php.ini -Encoding Default
+
+Write-Host "`$LASTEXITCODE = $LASTEXITCODE"
+exit $LASTEXITCODE
