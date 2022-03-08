@@ -5,20 +5,20 @@ import fetch from 'node-fetch';
 
 const PHP_RELEASES_URL = 'https://www.php.net/releases/index.php?json=true';
 
-export async function installPhp(version: string) {
+export async function installPhp(version: string): Promise<number> {
   const installVersion = await convertInstallVersion(version);
   if (process.platform === 'linux') {
     if (!hasPatchVersion(version) && hasAptVersion(version)) {
-      await exec.exec(path.join(__dirname, 'apt-install-php-ubuntu.sh'), [
+      return await exec.exec(path.join(__dirname, 'apt-install-php-ubuntu.sh'), [
         new Number(version).toFixed(1)
       ]);
     } else {
-      await exec.exec(path.join(__dirname, 'phpenv-install-php-ubuntu.sh'), [
+      return await exec.exec(path.join(__dirname, 'phpenv-install-php-ubuntu.sh'), [
         installVersion
       ]);
     }
   } else if (process.platform === 'win32') {
-    await exec.exec(
+    return await exec.exec(
       'powershell -File ' +
         path.join(
           __dirname,
@@ -26,6 +26,9 @@ export async function installPhp(version: string) {
         )
     );
   }
+
+  // Illegal process.platform
+  return -1;
 }
 export function hasAptVersion(version: string): boolean {
   if (hasPatchVersion(version)) return false;
@@ -57,6 +60,11 @@ export async function convertInstallVersion(version: string): Promise<string> {
     case '8':
       return version;
     default:
+      // The last version of PHP7.3.x series in chocolatey is 7.3.30
+      // see https://community.chocolatey.org/packages/php/7.3.30
+      if (process.platform === 'win32' && version === '7.3') {
+        return '7.3.30';
+      }
       const json = await fetch(`${PHP_RELEASES_URL}&version=${version}`)
           .then(response => response.json()) as PHPReleaseJson;
       return json.version;

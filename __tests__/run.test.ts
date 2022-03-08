@@ -1,6 +1,6 @@
-import * as semver from 'semver';
 import * as installer from '../src/installer';
 
+jest.setTimeout(10000);
 describe('example tests', () => {
   it('testing', () => {
     expect(true).toBe(true);
