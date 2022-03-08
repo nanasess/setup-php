@@ -61,9 +61,9 @@ jobs:
       if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
       run: npm install
 
-    - name: Lint
-      if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
-      run: npm run format-check
+    # - name: Lint
+    #   if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
+    #   run: npm run format-check
 
     - name: npm test
       if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'

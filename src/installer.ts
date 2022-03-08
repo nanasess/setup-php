@@ -1,6 +1,10 @@
 import * as exec from '@actions/exec';
 import * as path from 'path';
 import * as semver from 'semver';
+import fetch from 'node-fetch';
+
+jest.setTimeout(10000);
+const PHP_RELEASES_URL = 'https://www.php.net/releases/index.php?json=true';
 
 export async function installPhp(version: string) {
   const installVersion = convertInstallVersion(version);
@@ -11,7 +15,7 @@ export async function installPhp(version: string) {
       ]);
     } else {
       await exec.exec(path.join(__dirname, 'phpenv-install-php-ubuntu.sh'), [
-        installVersion
+        await installVersion
       ]);
     }
   } else if (process.platform === 'win32') {
@@ -40,28 +44,22 @@ export function hasPatchVersion(version: string): boolean {
   if (Semver === null) return false;
   return Semver.version === version;
 }
-export function convertInstallVersion(version: string): string {
+type PHPReleaseJson = {
+  announcement: boolean,
+  date: string;
+  source: any;
+  version: string;
+};
+
+export async function convertInstallVersion(version: string): Promise<string> {
   switch (version) {
-    case '5.4':
-      return '5.4.45';
-    case '5.5':
-      return '5.5.38';
-    case '5.6':
-      return '5.6.40';
-    case '7.0':
-      return '7.0.33';
-    case '7.1':
-      return '7.1.33';
-    case '7.2':
-      return '7.2.34';
-    case '7.3':
-      return '7.3.28';
-    case '7.4':
-      return '7.4.19';
-    case '8.0':
-      return '8.0.6';
-    case '8.1':
-      return '8.1.2';
+    case '5':
+    case '7':
+    case '8':
+      return version;
+    default:
+      const json = await fetch(`${PHP_RELEASES_URL}&version=${version}`)
+          .then(response => response.json()) as PHPReleaseJson;
+      return json.version;
   }
-  return version;
 }
