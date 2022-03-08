@@ -3,11 +3,10 @@ import * as path from 'path';
 import * as semver from 'semver';
 import fetch from 'node-fetch';
 
-jest.setTimeout(10000);
 const PHP_RELEASES_URL = 'https://www.php.net/releases/index.php?json=true';
 
 export async function installPhp(version: string) {
-  const installVersion = convertInstallVersion(version);
+  const installVersion = await convertInstallVersion(version);
   if (process.platform === 'linux') {
     if (!hasPatchVersion(version) && hasAptVersion(version)) {
       await exec.exec(path.join(__dirname, 'apt-install-php-ubuntu.sh'), [
@@ -15,7 +14,7 @@ export async function installPhp(version: string) {
       ]);
     } else {
       await exec.exec(path.join(__dirname, 'phpenv-install-php-ubuntu.sh'), [
-        await installVersion
+        installVersion
       ]);
     }
   } else if (process.platform === 'win32') {
