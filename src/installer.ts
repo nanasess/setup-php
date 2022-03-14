@@ -20,10 +20,10 @@ export async function installPhp(version: string): Promise<number> {
   } else if (process.platform === 'win32') {
     return await exec.exec(
       'powershell -File ' +
-        path.join(
-          __dirname,
-          'choco-install-php-windows.ps1 -version ' + installVersion
-        )
+      path.join(
+        __dirname,
+        'choco-install-php-windows.ps1 -version ' + installVersion
+      )
     );
   }
 
@@ -65,8 +65,36 @@ export async function convertInstallVersion(version: string): Promise<string> {
       if (process.platform === 'win32' && version === '7.3') {
         return '7.3.30';
       }
-      const json = await fetch(`${PHP_RELEASES_URL}&version=${version}`)
+      try {
+        const json = await fetch(`${PHP_RELEASES_URL}&version=${version}`)
           .then(response => response.json()) as PHPReleaseJson;
-      return json.version;
+
+        return json.version;
+      } catch (error) {
+        switch (version) {
+          case '5.4':
+            return '5.4.45';
+          case '5.5':
+            return '5.5.38';
+          case '5.6':
+            return '5.6.40';
+          case '7.0':
+            return '7.0.33';
+          case '7.1':
+            return '7.1.33';
+          case '7.2':
+            return '7.2.34';
+          case '7.3':
+            return '7.3.33';
+          case '7.4':
+            return '7.4.28';
+          case '8.0':
+            return '8.0.16';
+          case '8.1':
+            return '8.1.3';
+          default:
+            return version;
+        }
+      }
   }
 }
