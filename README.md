@@ -28,7 +28,7 @@ This action sets up a PHP environment for use in actions by:
 
 ## OS/Platform support
 
-- ubuntu-latest, ubuntu-20.04, ubuntu-18.04, or ubuntu-16.04
+- ubuntu-latest, ubuntu-20.04 or ubuntu-18.04
 - windows-latest, windows-2019, or windows-2016
 
 # Usage
@@ -38,8 +38,8 @@ See [action.yml](action.yml)
 Basic:
 ```yaml
 steps:
-- uses: actions/checkout@master
-- uses: nanasess/setup-php@master
+- uses: actions/checkout@v3
+- uses: nanasess/setup-php@v3
   with:
     php-version: '7.4'
 - run: php my_script.php
@@ -56,9 +56,9 @@ jobs:
         php: [ '5.4', '5.5', '5.6', '7.1', '7.2', '7.3', '7.4', '7.3.3' ]
     name: PHP ${{ matrix.php }} sample
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
       - name: Setup PHP
-        uses: nanasess/setup-php@master
+        uses: nanasess/setup-php@v3
         with:
           php-version: ${{ matrix.php }}
       - run: php my_script.php
