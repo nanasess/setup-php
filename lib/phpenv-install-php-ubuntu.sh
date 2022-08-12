@@ -46,11 +46,6 @@ git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-buil
 sudo apt-fast update
 
 # sudo apt-get purge 'php*'
-if [ $release == 'xenial' ]
-then
-    sudo apt-fast purge 'libssl1.1'
-    sudo apt-fast purge 'postgresql*'
-fi
 sudo apt-fast install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt1-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
      libonig-dev zlib1g-dev
@@ -59,9 +54,9 @@ if [ $release == 'bionic' ]
 then
     sudo apt-fast install -y mysql-client
 fi
-if [ $release == 'focal' ]
+if [ $release == 'focal' ] || [ $release == 'jammy' ]
 then
-    sudo apt-fast install -y libzip-dev mariadb-client-10.3
+    sudo apt-fast install -y libzip-dev libmariadb-dev libfreetype-dev
 fi
 
 sudo ln -s /usr/include/x86_64-linux-gnu/curl /usr/local/include/curl
@@ -80,7 +75,6 @@ cat <<EOF > $(phpenv root)/plugins/php-build/share/php-build/default_configure_o
 --with-zlib
 --with-zlib-dir=/usr
 --with-bz2
---enable-intl
 --with-kerberos
 --enable-soap
 --enable-xmlreader
@@ -99,10 +93,18 @@ cat <<EOF > $(phpenv root)/plugins/php-build/share/php-build/default_configure_o
 --enable-mbstring
 --disable-debug
 --enable-bcmath
---with-freetype-dir=/usr
 --with-pgsql=/usr/local
 --with-pdo-pgsql
 EOF
+
+# Since icu-config and freetype-config were disabled in Ubuntu-20.04 and later, enable the option only in PHP5.6 and later.
+error_code=0
+dpkg --compare-versions "$version" "lt" "5.6" || error_code=$?
+if [ "$error_code" -eq 1 ]
+then
+    echo "--enable-intl" >> $(phpenv root)/plugins/php-build/share/php-build/default_configure_options
+    echo "--with-freetype-dir=/usr" >> $(phpenv root)/plugins/php-build/share/php-build/default_configure_options
+fi
 
 export PHP_BUILD_EXTRA_MAKE_ARGUMENTS="-j$(nproc)"
 export PHP_BUILD_KEEP_OBJECT_FILES="on"

@@ -20,19 +20,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, ubuntu-18.04, windows-2019]
-        php: [5.4, 5.5, 5.6, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 7.2.11, 7.2.12, 8.0.3]
+        os: [ubuntu-22.04, ubuntu-20.04, ubuntu-18.04, windows-2022, windows-2019]
+        php: ['5.4', '5.5', '5.6', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '7.2.11', '7.2.12', '8.1.9']
         exclude:
           - os: windows-2019
             php: 7.2.11
           - os: windows-2019
             php: 8.0
-          - os: windows-2019
-            php: 8.0.3
+          - os: windows-2022
+            php: 7.2.11
+          - os: windows-2022
+            php: 8.0
           - os: ubuntu-18.04
             php: 7.2.12
           - os: ubuntu-18.04
-            php: 8.0.3
+            php: 8.1.9
           - os: ubuntu-20.04
             php: 5.4
           - os: ubuntu-20.04
@@ -41,18 +43,17 @@ jobs:
             php: 7.2.11
           - os: ubuntu-20.04
             php: 7.2.12
+          - os: ubuntu-22.04
+            php: 7.2.11
+          - os: ubuntu-22.04
+            php: 7.2.12
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Set Node.js 10.x
-      uses: actions/setup-node@master
-      with:
-        version: 10.x
-
     - name: npm install
-      if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
+      if: matrix.os == 'ubuntu-22.04' || matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
       run: npm install
 
     # - name: Lint
@@ -60,7 +61,7 @@ jobs:
     #   run: npm run format-check
 
     - name: npm test
-      if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
+      if: matrix.os == 'ubuntu-22.04' || matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
       run: npm test
 
     - name: Setup PHP
