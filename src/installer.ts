@@ -9,21 +9,23 @@ export async function installPhp(version: string): Promise<number> {
   const installVersion = await convertInstallVersion(version);
   if (process.platform === 'linux') {
     if (!hasPatchVersion(version) && hasAptVersion(version)) {
-      return await exec.exec(path.join(__dirname, 'apt-install-php-ubuntu.sh'), [
-        new Number(version).toFixed(1)
-      ]);
+      return await exec.exec(
+        path.join(__dirname, 'apt-install-php-ubuntu.sh'),
+        [new Number(version).toFixed(1)]
+      );
     } else {
-      return await exec.exec(path.join(__dirname, 'phpenv-install-php-ubuntu.sh'), [
-        installVersion
-      ]);
+      return await exec.exec(
+        path.join(__dirname, 'phpenv-install-php-ubuntu.sh'),
+        [installVersion]
+      );
     }
   } else if (process.platform === 'win32') {
     return await exec.exec(
       'powershell -File ' +
-      path.join(
-        __dirname,
-        'choco-install-php-windows.ps1 -version ' + installVersion
-      )
+        path.join(
+          __dirname,
+          'choco-install-php-windows.ps1 -version ' + installVersion
+        )
     );
   }
 
@@ -47,7 +49,7 @@ export function hasPatchVersion(version: string): boolean {
   return Semver.version === version;
 }
 type PHPReleaseJson = {
-  announcement: boolean,
+  announcement: boolean;
   date: string;
   source: any;
   version: string;
@@ -66,8 +68,9 @@ export async function convertInstallVersion(version: string): Promise<string> {
         return '7.3.30';
       }
       try {
-        const json = await fetch(`${PHP_RELEASES_URL}&version=${version}`)
-          .then(response => response.json()) as PHPReleaseJson;
+        const json = (await fetch(
+          `${PHP_RELEASES_URL}&version=${version}`
+        ).then(response => response.json())) as PHPReleaseJson;
 
         return json.version;
       } catch (error) {

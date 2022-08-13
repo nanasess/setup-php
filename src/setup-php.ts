@@ -7,7 +7,9 @@ async function run() {
     console.log(`##Installing PHP ${phpSpec}`);
     const exitCode = await installPhp(phpSpec);
     if (exitCode !== 0) {
-      throw new Error(`An error occurred while installing PHP(Code: ${exitCode}`);
+      throw new Error(
+        `An error occurred while installing PHP(Code: ${exitCode}`
+      );
     }
   } catch (error) {
     if (error instanceof Error) {

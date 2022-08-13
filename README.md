@@ -28,8 +28,8 @@ This action sets up a PHP environment for use in actions by:
 
 ## OS/Platform support
 
-- ubuntu-latest, ubuntu-20.04 or ubuntu-18.04
-- windows-latest, windows-2019, or windows-2016
+- ubuntu-latest, ubuntu-22.04 or ubuntu-20.04
+- windows-latest, windows-2022 or windows-2019
 
 # Usage
 
@@ -52,7 +52,7 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: [ ubuntu-18.04, windows-2019 ]
+        operating-system: [ ubuntu-latest, windows-latest ]
         php: [ '5.4', '5.5', '5.6', '7.1', '7.2', '7.3', '7.4', '7.3.3' ]
     name: PHP ${{ matrix.php }} sample
     steps:
