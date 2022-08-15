@@ -1,7 +1,7 @@
 import * as exec from '@actions/exec';
 import * as path from 'path';
 import * as semver from 'semver';
-import fetch from 'node-fetch';
+import superagent from 'superagent';
 
 const PHP_RELEASES_URL = 'https://www.php.net/releases/index.php?json=true';
 
@@ -68,9 +68,9 @@ export async function convertInstallVersion(version: string): Promise<string> {
         return '7.3.30';
       }
       try {
-        const json = (await fetch(
+        const json = (await superagent.get(
           `${PHP_RELEASES_URL}&version=${version}`
-        ).then(response => response.json())) as PHPReleaseJson;
+        ).then(response => response.body)) as PHPReleaseJson;
 
         return json.version;
       } catch (error) {
