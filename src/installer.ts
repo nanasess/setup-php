@@ -72,6 +72,10 @@ export async function convertInstallVersion(version: string): Promise<string> {
           `${PHP_RELEASES_URL}&version=${version}`
         ).then(response => response.body)) as PHPReleaseJson;
 
+        if (json.version === undefined) {
+          throw new Error('version is undefined');
+        }
+
         return json.version;
       } catch (error) {
         switch (version) {
