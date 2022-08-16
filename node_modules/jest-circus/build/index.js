@@ -89,6 +89,13 @@ const _dispatchDescribe = (blockFn, blockName, describeFn, mode) => {
     throw asyncError;
   }
 
+  try {
+    blockName = (0, _jestUtil.convertDescriptorToString)(blockName);
+  } catch (error) {
+    asyncError.message = error.message;
+    throw asyncError;
+  }
+
   (0, _state.dispatchSync)({
     asyncError,
     blockName,
@@ -155,13 +162,26 @@ exports.afterAll = afterAll;
 
 const test = (() => {
   const test = (testName, fn, timeout) =>
-    _addTest(testName, undefined, fn, test, timeout);
+    _addTest(testName, undefined, false, fn, test, timeout);
 
   const skip = (testName, fn, timeout) =>
-    _addTest(testName, 'skip', fn, skip, timeout);
+    _addTest(testName, 'skip', false, fn, skip, timeout);
 
   const only = (testName, fn, timeout) =>
-    _addTest(testName, 'only', fn, test.only, timeout);
+    _addTest(testName, 'only', false, fn, test.only, timeout);
+
+  const concurrentTest = (testName, fn, timeout) =>
+    _addTest(testName, undefined, true, fn, concurrentTest, timeout);
+
+  const concurrentOnly = (testName, fn, timeout) =>
+    _addTest(testName, 'only', true, fn, concurrentOnly, timeout);
+
+  const bindFailing = (concurrent, mode) => {
+    const failing = (testName, fn, timeout) =>
+      _addTest(testName, mode, concurrent, fn, failing, timeout, true);
+
+    return failing;
+  };
 
   test.todo = (testName, ...rest) => {
     if (rest.length > 0 || typeof testName !== 'string') {
@@ -169,16 +189,26 @@ const test = (() => {
         'Todo must be called with only a description.',
         test.todo
       );
-    }
+    } // eslint-disable-next-line @typescript-eslint/no-empty-function
 
-    return _addTest(testName, 'todo', () => {}, test.todo);
+    return _addTest(testName, 'todo', false, () => {}, test.todo);
   };
 
-  const _addTest = (testName, mode, fn, testFn, timeout) => {
+  const _addTest = (
+    testName,
+    mode,
+    concurrent,
+    fn,
+    testFn,
+    timeout,
+    failing
+  ) => {
     const asyncError = new _jestUtil.ErrorWithStack(undefined, testFn);
 
-    if (typeof testName !== 'string') {
-      asyncError.message = `Invalid first argument, ${testName}. It must be a string.`;
+    try {
+      testName = (0, _jestUtil.convertDescriptorToString)(testName);
+    } catch (error) {
+      asyncError.message = error.message;
       throw asyncError;
     }
 
@@ -195,6 +225,8 @@ const test = (() => {
 
     return (0, _state.dispatchSync)({
       asyncError,
+      concurrent,
+      failing: failing === undefined ? false : failing,
       fn,
       mode,
       name: 'add_test',
@@ -206,8 +238,18 @@ const test = (() => {
   test.each = (0, _jestEach.bind)(test);
   only.each = (0, _jestEach.bind)(only);
   skip.each = (0, _jestEach.bind)(skip);
+  concurrentTest.each = (0, _jestEach.bind)(concurrentTest, false);
+  concurrentOnly.each = (0, _jestEach.bind)(concurrentOnly, false);
+  only.failing = bindFailing(false, 'only');
+  skip.failing = bindFailing(false, 'skip');
+  test.failing = bindFailing(false);
   test.only = only;
   test.skip = skip;
+  test.concurrent = concurrentTest;
+  concurrentTest.only = concurrentOnly;
+  concurrentTest.skip = skip;
+  concurrentTest.failing = bindFailing(true);
+  concurrentOnly.failing = bindFailing(true, 'only');
   return test;
 })();
 
