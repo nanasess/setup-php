@@ -46,6 +46,9 @@ export function hasAptVersion(version: string): boolean {
 export function hasPatchVersion(version: string): boolean {
   const Semver = semver.coerce(version);
   if (Semver === null) return false;
+  if (version.endsWith('snapshot')) {
+    return true;
+  }
   return Semver.version === version;
 }
 type PHPReleaseJson = {

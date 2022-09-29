@@ -9,6 +9,7 @@ describe('example tests', () => {
     expect(installer.hasPatchVersion('5')).toBe(false);
     expect(installer.hasPatchVersion('5.5')).toBe(false);
     expect(installer.hasPatchVersion('5.5.5')).toBe(true);
+    expect(installer.hasPatchVersion('8.2snapshot')).toBe(true);
   });
   it('hasAptVersion tests', () => {
     expect(installer.hasAptVersion('5')).toBe(false);
@@ -25,6 +26,7 @@ describe('example tests', () => {
     expect(installer.hasAptVersion('8.0')).toBe(true);
     expect(installer.hasAptVersion('8.1')).toBe(true);
     expect(installer.hasAptVersion(new Number('8').toFixed(1))).toBe(true);
+    expect(installer.hasAptVersion('8.2snapshot')).toBe(false);
   });
   it('convertInstallVersion tests', async () => {
     expect(await installer.convertInstallVersion('5')).toBe('5');
@@ -39,5 +41,6 @@ describe('example tests', () => {
     // expect(await installer.convertInstallVersion('8.0')).toBe('8.0.6');
     // expect(await installer.convertInstallVersion('8.1')).toBe('8.1.2');
     expect(await installer.convertInstallVersion('7.3.8')).toBe('7.3.8');
+    expect(await installer.convertInstallVersion('8.2snapshot')).toBe('8.2snapshot');
   });
 });
