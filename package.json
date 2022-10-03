@@ -24,7 +24,7 @@
   "dependencies": {
     "@actions/core": "^1.9.1",
     "@actions/exec": "^1.1.1",
-    "@actions/github": "^5.1.0",
+    "@actions/github": "^5.1.1",
     "@actions/io": "^1.1.2",
     "@actions/tool-cache": "^2.0.1",
     "node-notifier": "^10.0.1",
@@ -39,7 +39,7 @@
     "@types/superagent": "^4.1.15",
     "husky": "^8.0.1",
     "jest": "^27.5.1",
-    "jest-circus": "^29.0.3",
+    "jest-circus": "^29.1.2",
     "minimist": "^1.2.6",
     "prettier": "^2.7.1",
     "ts-jest": "^27.1.3",
