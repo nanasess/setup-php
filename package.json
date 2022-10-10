@@ -28,7 +28,7 @@
     "@actions/io": "^1.1.2",
     "@actions/tool-cache": "^2.0.1",
     "node-notifier": "^10.0.1",
-    "semver": "^7.3.5",
+    "semver": "^7.3.8",
     "superagent": "^8.0.2",
     "typed-rest-client": "^1.8.9"
   },
