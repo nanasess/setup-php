@@ -124,8 +124,15 @@ if [ ! -d "${PHP_BUILD_TMPDIR}/source/${version}" ]
 then
     mkdir -p ${PHP_BUILD_TMPDIR}/source/${version}
 fi
-curl -L --retry-connrefused --retry 10 --retry-delay 10 --max-time 30 -o ${PHP_BUILD_TMPDIR}/packages/php-${version}.tar.bz2 https://www.php.net/distributions/php-${version}.tar.bz2
-tar -x --strip-components 1 -f ${PHP_BUILD_TMPDIR}/packages/php-${version}.tar.bz2 -C ${PHP_BUILD_TMPDIR}/source/${version}
+
+if [[ $version = 8.2snapshot ]]
+then
+    git clone -b PHP-8.2 https://github.com/php/php-src.git ${PHP_BUILD_TMPDIR}/source/${version}
+    cat ${PHP_BUILD_TMPDIR}/source/${version}/main/php_version.h
+else
+    curl -L --retry-connrefused --retry 10 --retry-delay 10 --max-time 30 -o ${PHP_BUILD_TMPDIR}/packages/php-${version}.tar.bz2 https://www.php.net/distributions/php-${version}.tar.bz2
+    tar -x --strip-components 1 -f ${PHP_BUILD_TMPDIR}/packages/php-${version}.tar.bz2 -C ${PHP_BUILD_TMPDIR}/source/${version}
+fi
 
 phpenv install -v -s $version
 install_ext_openssl
