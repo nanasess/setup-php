@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
-    "@types/node": "^18.11.4",
+    "@types/node": "^18.11.8",
     "@types/semver": "^7.3.13",
     "@types/superagent": "^4.1.15",
     "husky": "^8.0.1",
