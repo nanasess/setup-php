@@ -23,4 +23,9 @@ Write-Output extension=php_pdo_pgsql.dll | Add-Content php.ini -Encoding Default
 Write-Output extension=php_curl.dll | Add-Content php.ini -Encoding Default
 
 Write-Host "`$LASTEXITCODE = $LASTEXITCODE"
-exit $LASTEXITCODE
+if ($LASTEXITCODE -eq 3010) {
+    Write-Host "`$LASTEXITCODE is 3010 is reboot a required and will be ignored."
+    exit 0
+} else {
+    exit $LASTEXITCODE
+}
