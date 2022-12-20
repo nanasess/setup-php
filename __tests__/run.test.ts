@@ -27,6 +27,7 @@ describe('example tests', () => {
     expect(installer.hasAptVersion('8.1')).toBe(true);
     expect(installer.hasAptVersion(new Number('8').toFixed(1))).toBe(true);
     expect(installer.hasAptVersion('8.2snapshot')).toBe(false);
+    expect(installer.hasAptVersion('8.2')).toBe(true);
   });
   it('convertInstallVersion tests', async () => {
     expect(await installer.convertInstallVersion('5')).toBe('5');
@@ -41,6 +42,6 @@ describe('example tests', () => {
     // expect(await installer.convertInstallVersion('8.0')).toBe('8.0.6');
     // expect(await installer.convertInstallVersion('8.1')).toBe('8.1.2');
     expect(await installer.convertInstallVersion('7.3.8')).toBe('7.3.8');
-    expect(await installer.convertInstallVersion('8.2snapshot')).toBe('8.2snapshot');
+    // expect(await installer.convertInstallVersion('8.2snapshot')).toBe('8.2snapshot');
   });
 });
