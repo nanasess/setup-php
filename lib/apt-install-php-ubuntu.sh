@@ -47,6 +47,7 @@ fi
 
 if [[ $release = 'focal' && `echo "$version < 8.0" | bc` == 1 ]]
 then
+    sudo apt install php${version}-common=7.4.3-4ubuntu2.16 -y --allow-downgrades
     sudo apt-fast install -y \
          php${version}-json \
          php${version}-xmlrpc
