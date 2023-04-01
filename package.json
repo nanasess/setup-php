@@ -3,9 +3,10 @@
   "version": "3.1.1",
   "private": true,
   "description": "setup php action",
-  "main": "lib/setup-php.js",
+  "main": "dest/index.js",
   "scripts": {
     "build": "tsc",
+    "package": "ncc build --source-map --license licenses.txt",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "test": "jest"
@@ -27,6 +28,7 @@
     "@actions/github": "^5.1.1",
     "@actions/io": "^1.1.2",
     "@actions/tool-cache": "^2.0.1",
+    "@vercel/ncc": "^0.36.1",
     "node-notifier": "^10.0.1",
     "semver": "^7.3.8",
     "superagent": "^8.0.9",
@@ -37,6 +39,7 @@
     "@types/node": "^18.15.3",
     "@types/semver": "^7.3.13",
     "@types/superagent": "^4.1.16",
+    "@types/yauzl": "^2.10.0",
     "husky": "^8.0.3",
     "jest": "^27.5.1",
     "jest-circus": "^29.5.0",
