@@ -10,12 +10,12 @@ export async function installPhp(version: string): Promise<number> {
   if (process.platform === 'linux') {
     if (!hasPatchVersion(version) && hasAptVersion(version)) {
       return await exec.exec(
-        path.join(__dirname, 'apt-install-php-ubuntu.sh'),
+        path.join(__dirname, '../lib', 'apt-install-php-ubuntu.sh'),
         [new Number(version).toFixed(1)]
       );
     } else {
       return await exec.exec(
-        path.join(__dirname, 'phpenv-install-php-ubuntu.sh'),
+        path.join(__dirname, '../lib', 'phpenv-install-php-ubuntu.sh'),
         [installVersion]
       );
     }
@@ -24,6 +24,7 @@ export async function installPhp(version: string): Promise<number> {
       'powershell -File ' +
         path.join(
           __dirname,
+          '../lib',
           'choco-install-php-windows.ps1 -version ' + installVersion
         )
     );

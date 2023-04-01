@@ -12,4 +12,4 @@ inputs:
     description: 'Optional scope for authenticating against scoped registries'
 runs:
   using: 'node16'
-  main: 'lib/setup-php.js'
+  main: 'dist/index.js'
