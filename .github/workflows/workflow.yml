@@ -53,7 +53,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: npm install
-      if: matrix.os == 'ubuntu-22.04' || matrix.os == 'ubuntu-20.04'
+      if: startsWith(matrix.os, 'ubuntu')
       run: npm install
 
     # - name: Lint
@@ -61,9 +61,13 @@ jobs:
     #   run: npm run format-check
 
     - name: npm test
-      if: matrix.os == 'ubuntu-22.04' || matrix.os == 'ubuntu-20.04'
+      if: startsWith(matrix.os, 'ubuntu')
       run: npm test
-
+    - if: startsWith(matrix.os, 'ubuntu')
+      run: rm -rf node_modules
+    - if: startsWith(matrix.os, 'windows')
+      run: rm -rf node_modules
+      shell: bash
     - name: Setup PHP
       uses: ./
       with:
