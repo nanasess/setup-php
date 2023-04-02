@@ -23,6 +23,7 @@ This action sets up a PHP environment for use in actions by:
 - 7.4
 - 8.0
 - 8.1
+- 8.2
 
 *Patch version can also be set. e.g. 7.2.11*
 
@@ -39,9 +40,9 @@ Basic:
 ```yaml
 steps:
 - uses: actions/checkout@v3
-- uses: nanasess/setup-php@v3
+- uses: nanasess/setup-php@v4
   with:
-    php-version: '7.4'
+    php-version: '8.2'
 - run: php my_script.php
 ```
 
@@ -58,7 +59,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup PHP
-        uses: nanasess/setup-php@v3
+        uses: nanasess/setup-php@v4
         with:
           php-version: ${{ matrix.php }}
       - run: php my_script.php
