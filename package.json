@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.16.3",
     "@types/semver": "^7.3.13",
     "@types/superagent": "^4.1.16",
     "@types/yauzl": "^2.10.0",
