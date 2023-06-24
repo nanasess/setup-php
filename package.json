@@ -38,7 +38,7 @@
     "@types/jest": "^27.4.1",
     "@types/node": "^18.15.11",
     "@types/semver": "^7.3.13",
-    "@types/superagent": "^4.1.16",
+    "@types/superagent": "^4.1.18",
     "@types/yauzl": "^2.10.0",
     "husky": "^8.0.3",
     "jest": "^27.5.1",
