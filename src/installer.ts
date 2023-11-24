@@ -1,3 +1,4 @@
+import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 import * as path from 'path';
 import * as semver from 'semver';
@@ -7,13 +8,21 @@ const PHP_RELEASES_URL = 'https://www.php.net/releases/index.php?json=true';
 
 export async function installPhp(version: string): Promise<number> {
   const installVersion = await convertInstallVersion(version);
+
+  core.info(`Installing PHP ${installVersion}`);
   if (process.platform === 'linux') {
+    const hasPatch = hasPatchVersion(version);
+    core.info(`hasPatchVersion(${version}): ${hasPatch}`);
+    const hasApt = hasAptVersion(version);
+    core.info(`hasAptVersion(${version}): ${hasApt}`);
     if (!hasPatchVersion(version) && hasAptVersion(version)) {
+      core.info(`Installing PHP ${version} via apt`);
       return await exec.exec(
         path.join(__dirname, '../lib', 'apt-install-php-ubuntu.sh'),
         [new Number(version).toFixed(1)]
       );
     } else {
+      core.info(`Installing PHP ${installVersion} via phpenv`);
       return await exec.exec(
         path.join(__dirname, '../lib', 'phpenv-install-php-ubuntu.sh'),
         [installVersion]
@@ -42,7 +51,7 @@ export function hasAptVersion(version: string): boolean {
       return false;
     }
   }
-  return semver.satisfies(Semver.version, '5.6 || <=7.4 || <= 8.2');
+  return semver.satisfies(Semver.version, '5.6 || <=7.4 || <= 8.3');
 }
 export function hasPatchVersion(version: string): boolean {
   const Semver = semver.coerce(version);
@@ -72,9 +81,9 @@ export async function convertInstallVersion(version: string): Promise<string> {
         return '7.3.30';
       }
       try {
-        const json = (await superagent.get(
-          `${PHP_RELEASES_URL}&version=${version}`
-        ).then(response => response.body)) as PHPReleaseJson;
+        const json = (await superagent
+          .get(`${PHP_RELEASES_URL}&version=${version}`)
+          .then(response => response.body)) as PHPReleaseJson;
 
         if (json.version === undefined) {
           throw new Error('version is undefined');
@@ -105,6 +114,8 @@ export async function convertInstallVersion(version: string): Promise<string> {
             return '8.1.3';
           case '8.2':
             return '8.2.0';
+          case '8.3':
+            return '8.3.0';
           default:
             return version;
         }
