@@ -4,7 +4,7 @@ import {installPhp} from './installer';
 async function run() {
   try {
     const phpSpec = core.getInput('php-version', {required: true});
-    console.log(`##Installing PHP ${phpSpec}`);
+    core.info(`Installing PHP ${phpSpec}`);
     const exitCode = await installPhp(phpSpec);
     if (exitCode !== 0) {
       throw new Error(

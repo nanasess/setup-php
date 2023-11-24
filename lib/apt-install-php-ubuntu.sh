@@ -67,3 +67,10 @@ sudo phpdismod -s cli xdebug
 
 sudo bash -c 'echo "opcache.enable_cli=1" >> /etc/php/'$version'/cli/conf.d/10-opcache.ini'
 sudo bash -c 'echo "apc.enable_cli=1" >> /etc/php/'$version'/cli/conf.d/20-apcu.ini'
+
+if [[ `echo "$version >= 8.1" | bc` == 1 ]]
+then
+    sudo bash -c 'echo "opcache.enable = 1" >> /etc/php/'$version'/cli/conf.d/10-opcache.ini'
+    sudo bash -c 'echo "opcache.jit = tracing" >> /etc/php/'$version'/cli/conf.d/10-opcache.ini'
+    sudo bash -c 'echo "opcache.jit_buffer_size = 128M" >> /etc/php/'$version'/cli/conf.d/10-opcache.ini'
+fi
