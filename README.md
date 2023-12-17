@@ -13,7 +13,7 @@ This action sets up a PHP environment for use in actions by:
 
 ## PHP version support
 
-- 5.4
+- 5.4(Ubuntu only)
 - 5.5
 - 5.6
 - 7.0
