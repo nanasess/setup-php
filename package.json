@@ -31,7 +31,7 @@
     "@vercel/ncc": "^0.38.1",
     "node-notifier": "^10.0.1",
     "semver": "^7.5.4",
-    "superagent": "^8.0.9",
+    "superagent": "^8.1.2",
     "typed-rest-client": "^1.8.11"
   },
   "devDependencies": {
