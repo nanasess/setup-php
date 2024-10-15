@@ -51,17 +51,21 @@ fi
 sudo apt-fast update
 
 # sudo apt-get purge 'php*'
-sudo apt-fast install -y libcurl4-nss-dev libjpeg-dev re2c libxml2-dev \
+sudo apt-fast install -y libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt1-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
      libonig-dev zlib1g-dev
 
+if [ $release == 'noble' ]
+then
+    sudo apt-fast install -y libcurl4-openssl-dev libsqlite3-dev
+fi
 if [ $release == 'bionic' ]
 then
-    sudo apt-fast install -y mysql-client
+    sudo apt-fast install -y mysql-client libcurl4-nss-dev
 fi
 if [ $release == 'focal' ] || [ $release == 'jammy' ]
 then
-    sudo apt-fast install -y libzip-dev libmariadb-dev libfreetype-dev
+    sudo apt-fast install -y libzip-dev libmariadb-dev libfreetype-dev libcurl4-nss-dev
 fi
 
 sudo ln -s /usr/include/x86_64-linux-gnu/curl /usr/local/include/curl

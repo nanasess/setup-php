@@ -20,6 +20,7 @@ fi
 
 if [[ $version = '5.6' ]] \
        || [[ `echo "$version >= 8.2" | bc` == 1 ]] \
+       || [[ $release = 'noble' && `echo "$version < 8.2" | bc` == 1 ]] \
        || [[ $release = 'jammy' && `echo "$version < 8.1" | bc` == 1 ]] \
        || [[ $release = 'focal' && `echo "$version < 7.4 || $version >= 8.0" | bc` == 1 ]] \
        || [[ $release = 'bionic' && `echo "$version < 7.4 || $version >= 8.0" | bc` == 1 ]]
