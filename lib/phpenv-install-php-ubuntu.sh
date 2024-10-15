@@ -43,6 +43,11 @@ export PATH="$HOME/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
 git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
 
+if ! command -v apt-fast >/dev/null; then
+    sudo ln -sf /usr/bin/apt-get /usr/bin/apt-fast
+    trap "sudo rm -f /usr/bin/apt-fast 2>/dev/null" exit
+fi
+
 sudo apt-fast update
 
 # sudo apt-get purge 'php*'

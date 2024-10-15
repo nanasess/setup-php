@@ -13,6 +13,11 @@ fi
 
 sudo apt-get update
 
+if ! command -v apt-fast >/dev/null; then
+    sudo ln -sf /usr/bin/apt-get /usr/bin/apt-fast
+    trap "sudo rm -f /usr/bin/apt-fast 2>/dev/null" exit
+fi
+
 if [[ $version = '5.6' ]] \
        || [[ `echo "$version >= 8.2" | bc` == 1 ]] \
        || [[ $release = 'jammy' && `echo "$version < 8.1" | bc` == 1 ]] \
