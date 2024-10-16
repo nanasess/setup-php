@@ -57,7 +57,7 @@ sudo apt-fast install -y libjpeg-dev re2c libxml2-dev \
 
 if [ $release == 'noble' ]
 then
-    sudo apt-fast install -y libcurl4-openssl-dev libsqlite3-dev
+    sudo apt-fast install -y libcurl4-openssl-dev libsqlite3-dev libzip-dev
 fi
 if [ $release == 'bionic' ]
 then
