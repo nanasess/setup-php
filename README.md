@@ -13,8 +13,8 @@ This action sets up a PHP environment for use in actions by:
 
 ## PHP version support
 
-- 5.4(Ubuntu only)
-- 5.5
+- 5.4(ubuntu-22.04 or ubuntu-20.04 only)
+- 5.5(ubuntu-22.04 or ubuntu-20.04 only)
 - 5.6
 - 7.0
 - 7.1
@@ -30,7 +30,7 @@ This action sets up a PHP environment for use in actions by:
 
 ## OS/Platform support
 
-- ubuntu-latest, ubuntu-22.04 or ubuntu-20.04
+- ubuntu-latest, ubuntu-24.04, ubuntu-22.04 or ubuntu-20.04
 - windows-latest, windows-2022 or windows-2019
 
 # Usage
@@ -55,7 +55,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ ubuntu-latest, windows-latest ]
-        php: [ '5.4', '5.5', '5.6', '7.1', '7.2', '7.3', '7.4', '7.3.3' ]
+        php: [ '5.6', '7.1', '7.2', '7.3', '7.4', '7.3.3' ]
     name: PHP ${{ matrix.php }} sample
     steps:
       - uses: actions/checkout@v3
