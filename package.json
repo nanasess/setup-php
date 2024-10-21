@@ -32,7 +32,7 @@
     "node-notifier": "^10.0.1",
     "semver": "^7.6.0",
     "superagent": "^10.1.0",
-    "typed-rest-client": "^1.8.11"
+    "typed-rest-client": "^2.1.0"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
