@@ -28,6 +28,7 @@ then
     sudo add-apt-repository ppa:ondrej/php
     sudo apt-fast install -y build-essential debconf-utils unzip autogen autoconf libtool pkg-config
 
+    # Install common PHP packages
     sudo apt-fast install -y \
          php${version}-bcmath \
          php${version}-bz2 \
@@ -41,7 +42,6 @@ then
          php${version}-mbstring \
          php${version}-mysql \
          php${version}-odbc \
-         php${version}-opcache \
          php${version}-pgsql \
          php${version}-readline \
          php${version}-soap \
@@ -49,6 +49,12 @@ then
          php${version}-xml \
          php${version}-xsl \
          php${version}-zip
+
+    # Install opcache separately (bundled in PHP 8.5+)
+    if [[ `echo "$version < 8.5" | bc` == 1 ]]
+    then
+        sudo apt-fast install -y php${version}-opcache
+    fi
 fi
 
 if [[ $release = 'focal' && `echo "$version < 8.0" | bc` == 1 ]]
