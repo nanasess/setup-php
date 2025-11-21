@@ -26,10 +26,11 @@ This action sets up a PHP environment for use in actions by:
 - 8.2
 - 8.3
 - 8.4
+- 8.5
 
 *Patch version can also be set. e.g. 7.2.11*
 
-*Note: PHP 8.4 does not support patch versions yet.*
+*Note: PHP 8.4 and 8.5 do not support patch versions yet.*
 
 ## OS/Platform support
 
