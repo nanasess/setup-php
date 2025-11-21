@@ -54,6 +54,9 @@ The installer (src/installer.ts) chooses installation method based on:
   - Calls `lib/apt-install-php-ubuntu.sh`
   - Uses ondrej/php PPA for versions not in default repos
   - Installs common extensions (bcmath, curl, gd, mbstring, mysql, etc.)
+  - OPcache handling:
+    - PHP < 8.5: Installs php${version}-opcache package separately
+    - PHP 8.5+: OPcache bundled in core (no separate package)
   - Configures OPcache with JIT for PHP 8.1+
 - phpenv method: Used for patch versions or unsupported APT versions
   - Calls `lib/phpenv-install-php-ubuntu.sh`
@@ -134,3 +137,7 @@ When adding support for new PHP versions:
 2. Add fallback version in `convertInstallVersion()` catch block
 3. Update README.md to list the new version
 4. Update workflow.yml matrix to test the new version
+5. Check if the new version bundles extensions (like opcache in PHP 8.5+)
+   - Update `lib/apt-install-php-ubuntu.sh` to exclude bundled extensions
+6. Run `npm run build && npm run package` to update dist/index.js
+7. Test both APT and phpenv installation methods
