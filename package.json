@@ -30,14 +30,14 @@
     "@actions/tool-cache": "^2.0.2",
     "@vercel/ncc": "^0.38.3",
     "node-notifier": "^10.0.1",
-    "semver": "^7.7.2",
+    "semver": "^7.7.3",
     "superagent": "^10.1.1",
     "typed-rest-client": "^2.1.0"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@types/node": "^22.10.5",
-    "@types/semver": "^7.7.0",
+    "@types/semver": "^7.7.1",
     "@types/superagent": "^8.1.6",
     "@types/yauzl": "^2.10.3",
     "husky": "^9.1.7",
