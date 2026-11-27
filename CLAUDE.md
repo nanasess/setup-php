@@ -97,6 +97,12 @@ Tests are in `__tests__/run.test.ts` and cover:
 - Version parsing logic (`hasPatchVersion`, `hasAptVersion`)
 - Version conversion functionality (`convertInstallVersion`)
 - Uses Jest with 10-second timeout for API calls
+- TypeScript is transformed by `jest-transform.cjs` (Node's native `node:module.stripTypeScriptTypes()`), not ts-jest
+  - ts-jest does not support TypeScript 7 (the Go-native compiler has no programmatic API)
+  - The transform only strips types; type-checking is done by `npm run build` (tsc)
+  - Tests run as ES modules (`--experimental-vm-modules`), so import `jest` from `@jest/globals`; the build output stays CommonJS
+  - Requires Node 22.18+ (the default Node on the Ubuntu runners satisfies this)
+  - Strip mode cannot handle enum / namespace / parameter properties; do not use them in src/ or __tests__/
 
 **Note:** Some tests are commented out because they depend on the latest PHP versions available at php.net, which change over time.
 
