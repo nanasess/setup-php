@@ -33,6 +33,8 @@ This action sets up a PHP environment for use in actions by:
 
 *Note: PHP 8.4, 8.5 and 8.6 do not support patch versions yet.*
 
+*Note: Patch versions are not supported on ubuntu-26.04 yet.*
+
 ## OS/Platform support
 
 - ubuntu-latest, ubuntu-26.04, ubuntu-24.04 or ubuntu-22.04

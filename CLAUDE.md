@@ -64,6 +64,7 @@ The installer (src/installer.ts) chooses installation method based on:
   - Calls `lib/phpenv-install-php-ubuntu.sh`
   - Compiles PHP from source with custom configure options
   - Builds OpenSSL 1.0.2 and PostgreSQL 9.6 from source
+  - Not supported on ubuntu-26.04 (OpenSSL 1.0.2 fails to link with the resolute toolchain)
   - Handles snapshot versions (e.g., 8.2snapshot from GitHub)
 
 **Windows Installation:**
