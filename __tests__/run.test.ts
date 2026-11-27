@@ -1,3 +1,4 @@
+import {jest} from '@jest/globals';
 import * as installer from '../src/installer';
 
 jest.setTimeout(10000);
