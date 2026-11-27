@@ -18,14 +18,34 @@ if ! command -v apt-fast >/dev/null; then
     trap "sudo rm -f /usr/bin/apt-fast 2>/dev/null" exit
 fi
 
+# The ondrej/php PPA is frozen and no longer receives updates.
+# Use the packages.sury.org repository instead (supports jammy, noble and resolute).
+# see https://packages.sury.org/php/README.txt
+add_sury_php_repository()
+{
+    if grep -rqs 'packages.sury.org/php' /etc/apt/sources.list /etc/apt/sources.list.d/
+    then
+        return
+    fi
+    sudo apt-fast install -y lsb-release ca-certificates curl
+    curl -sSL --retry-connrefused --retry 10 --retry-delay 10 --max-time 60 \
+         -o /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb
+    sudo dpkg -i /tmp/debsuryorg-archive-keyring.deb
+    rm -f /tmp/debsuryorg-archive-keyring.deb
+    echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ ${release} main" \
+        | sudo tee /etc/apt/sources.list.d/php.list
+    sudo apt-get update
+}
+
 if [[ $version = '5.6' ]] \
        || [[ `echo "$version >= 8.2" | bc` == 1 ]] \
+       || [[ $release = 'resolute' ]] \
        || [[ $release = 'noble' && `echo "$version < 8.2" | bc` == 1 ]] \
        || [[ $release = 'jammy' && `echo "$version < 8.1" | bc` == 1 ]] \
        || [[ $release = 'focal' && `echo "$version < 7.4 || $version >= 8.0" | bc` == 1 ]] \
        || [[ $release = 'bionic' && `echo "$version < 7.4 || $version >= 8.0" | bc` == 1 ]]
 then
-    sudo add-apt-repository ppa:ondrej/php
+    add_sury_php_repository
     sudo apt-fast install -y build-essential debconf-utils unzip autogen autoconf libtool pkg-config
 
     # Install common PHP packages

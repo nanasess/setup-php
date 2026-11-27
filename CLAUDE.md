@@ -4,16 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a GitHub Action called `setup-php` that sets up PHP environments in GitHub Actions workflows. It supports installing various PHP versions (5.4-8.5) on Ubuntu and Windows platforms using different installation methods (apt, phpenv, chocolatey).
+This is a GitHub Action called `setup-php` that sets up PHP environments in GitHub Actions workflows. It supports installing various PHP versions (5.4-8.6) on Ubuntu and Windows platforms using different installation methods (apt, phpenv, chocolatey).
 
 **Supported Versions:**
 - PHP 5.4-5.5 (ubuntu-22.04 only)
 - PHP 5.6-8.5
-- Patch versions supported (e.g., 7.2.11) except PHP 8.4 and 8.5
+- PHP 8.6 (ubuntu only, via APT)
+- Patch versions supported (e.g., 7.2.11) except PHP 8.4, 8.5 and 8.6
 - Snapshot versions supported (e.g., 8.2snapshot)
 
 **Supported Platforms:**
-- ubuntu-latest, ubuntu-24.04, ubuntu-22.04
+- ubuntu-latest, ubuntu-26.04, ubuntu-24.04, ubuntu-22.04
 - windows-latest, windows-2025, windows-2022
 
 ## Development Commands
@@ -50,18 +51,20 @@ The installer (src/installer.ts) chooses installation method based on:
 3. **APT availability** - `hasAptVersion()` checks if version available via APT
 
 **Linux Installation Logic:**
-- APT method: Used for major.minor versions (5.6, 7.0-7.4, 8.0-8.5) without patch version
+- APT method: Used for major.minor versions (5.6, 7.0-7.4, 8.0-8.6) without patch version
   - Calls `lib/apt-install-php-ubuntu.sh`
-  - Uses ondrej/php PPA for versions not in default repos
+  - Uses the packages.sury.org/php repository for versions not in default repos (all versions on ubuntu-26.04)
+    - The ondrej/php PPA is frozen and has no packages for resolute, so it is no longer used
   - Installs common extensions (bcmath, curl, gd, mbstring, mysql, etc.)
   - OPcache handling:
     - PHP < 8.5: Installs php${version}-opcache package separately
-    - PHP 8.5+: OPcache bundled in core (no separate package)
+    - PHP 8.5+ (including 8.6): OPcache bundled in core (no separate package)
   - Configures OPcache with JIT for PHP 8.1+
 - phpenv method: Used for patch versions or unsupported APT versions
   - Calls `lib/phpenv-install-php-ubuntu.sh`
   - Compiles PHP from source with custom configure options
   - Builds OpenSSL 1.0.2 and PostgreSQL 9.6 from source
+  - Not supported on ubuntu-26.04 (OpenSSL 1.0.2 fails to link with the resolute toolchain)
   - Handles snapshot versions (e.g., 8.2snapshot from GitHub)
 
 **Windows Installation:**
@@ -78,7 +81,7 @@ The installer (src/installer.ts) chooses installation method based on:
 
 **Version Detection Functions:**
 - `hasPatchVersion()`: Returns true if version is specific patch (e.g., 7.2.11) or snapshot
-- `hasAptVersion()`: Returns true if version is 5.6 or 7.0-8.5 (major.minor only)
+- `hasAptVersion()`: Returns true if version is 5.6 or 7.0-8.6 (major.minor only)
 
 ## Build Output Structure
 
@@ -100,9 +103,9 @@ Tests are in `__tests__/run.test.ts` and cover:
 ## CI/CD Workflow
 
 The project uses GitHub Actions (`workflow.yml`) to test:
-- **Matrix testing** across OS versions (ubuntu-24.04, ubuntu-22.04, windows-2025, windows-2022)
-- **PHP versions** from 5.4 to 8.5, including specific patch versions (7.2.11, 7.2.12, 8.1.9)
-- **Exclusions** for unsupported combinations (e.g., PHP 5.4 on Windows, PHP 5.4/5.5 on ubuntu-24.04)
+- **Matrix testing** across OS versions (ubuntu-26.04, ubuntu-24.04, ubuntu-22.04, windows-2025, windows-2022)
+- **PHP versions** from 5.4 to 8.6, including specific patch versions (7.2.11, 7.2.12, 8.1.9)
+- **Exclusions** for unsupported combinations (e.g., PHP 5.4 on Windows, PHP 5.4/5.5 on ubuntu-24.04/26.04, PHP 8.6 on Windows)
 
 Workflow steps:
 1. Checkout code
