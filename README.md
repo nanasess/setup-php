@@ -27,14 +27,17 @@ This action sets up a PHP environment for use in actions by:
 - 8.3
 - 8.4
 - 8.5
+- 8.6(ubuntu only)
 
 *Patch version can also be set. e.g. 7.2.11*
 
-*Note: PHP 8.4 and 8.5 do not support patch versions yet.*
+*Note: PHP 8.4, 8.5 and 8.6 do not support patch versions yet.*
+
+*Note: Patch versions are not supported on ubuntu-26.04 yet.*
 
 ## OS/Platform support
 
-- ubuntu-latest, ubuntu-24.04 or ubuntu-22.04
+- ubuntu-latest, ubuntu-26.04, ubuntu-24.04 or ubuntu-22.04
 - windows-latest, windows-2025 or windows-2022
 
 # Usage

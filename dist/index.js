@@ -99,7 +99,7 @@ function hasAptVersion(version) {
             return false;
         }
     }
-    return semver.satisfies(Semver.version, '5.6 || <=7.4 || <= 8.5');
+    return semver.satisfies(Semver.version, '5.6 || <=7.4 || <= 8.6');
 }
 exports.hasAptVersion = hasAptVersion;
 function hasPatchVersion(version) {
@@ -164,6 +164,8 @@ function convertInstallVersion(version) {
                             return '8.4.0';
                         case '8.5':
                             return '8.5.0';
+                        case '8.6':
+                            return '8.6.0';
                         default:
                             return version;
                     }

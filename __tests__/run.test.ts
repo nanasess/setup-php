@@ -31,6 +31,8 @@ describe('example tests', () => {
     expect(installer.hasAptVersion('8.3')).toBe(true);
     expect(installer.hasAptVersion('8.4')).toBe(true);
     expect(installer.hasAptVersion('8.5')).toBe(true);
+    expect(installer.hasAptVersion('8.6')).toBe(true);
+    expect(installer.hasAptVersion('8.7')).toBe(false);
   });
   it('convertInstallVersion tests', async () => {
     expect(await installer.convertInstallVersion('5')).toBe('5');
