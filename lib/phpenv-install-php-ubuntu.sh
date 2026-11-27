@@ -55,7 +55,7 @@ sudo apt-fast install -y libjpeg-dev re2c libxml2-dev \
      libtidy-dev libxslt1-dev libmcrypt-dev libreadline-dev libfreetype6-dev \
      libonig-dev zlib1g-dev
 
-if [ $release == 'noble' ]
+if [ $release == 'noble' ] || [ $release == 'resolute' ]
 then
     sudo apt-fast install -y libcurl4-openssl-dev libsqlite3-dev libzip-dev
 fi
