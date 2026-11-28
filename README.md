@@ -13,8 +13,8 @@ This action sets up a PHP environment for use in actions by:
 
 ## PHP version support
 
-- 5.4(ubuntu-22.04 or ubuntu-20.04 only)
-- 5.5(ubuntu-22.04 or ubuntu-20.04 only)
+- 5.4(ubuntu-22.04 only)
+- 5.5(ubuntu-22.04 only)
 - 5.6
 - 7.0
 - 7.1
@@ -25,13 +25,20 @@ This action sets up a PHP environment for use in actions by:
 - 8.1
 - 8.2
 - 8.3
+- 8.4
+- 8.5
+- 8.6(ubuntu only)
 
 *Patch version can also be set. e.g. 7.2.11*
 
+*Note: PHP 8.4, 8.5 and 8.6 do not support patch versions yet.*
+
+*Note: Patch versions are not supported on ubuntu-26.04 yet.*
+
 ## OS/Platform support
 
-- ubuntu-latest, ubuntu-24.04, ubuntu-22.04 or ubuntu-20.04
-- windows-latest, windows-2022 or windows-2019
+- ubuntu-latest, ubuntu-26.04, ubuntu-24.04 or ubuntu-22.04
+- windows-latest, windows-2025 or windows-2022
 
 # Usage
 
