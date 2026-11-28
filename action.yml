@@ -11,5 +11,5 @@ inputs:
   scope:
     description: 'Optional scope for authenticating against scoped registries'
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.js'
