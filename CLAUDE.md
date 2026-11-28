@@ -22,7 +22,7 @@ This is a GitHub Action called `setup-php` that sets up PHP environments in GitH
 ### Building and Testing
 - `npm run build` - Compile TypeScript to JavaScript in lib/
 - `npm run test` - Run Jest tests
-- `npm run package` - Bundle with ncc for distribution (creates dist/index.js)
+- `npm run package` - Bundle `lib/setup-php.js` with ncc for distribution (creates dist/index.js). Run `npm run build` first. The input is explicit because ncc otherwise uses `main` (`dist/index.js`) and re-wraps the existing bundle.
 - `npm run format` - Format code with Prettier
 - `npm run format-check` - Check code formatting
 
@@ -148,5 +148,5 @@ When adding support for new PHP versions:
 4. Update workflow.yml matrix to test the new version
 5. Check if the new version bundles extensions (like opcache in PHP 8.5+)
    - Update `lib/apt-install-php-ubuntu.sh` to exclude bundled extensions
-6. Run `npm run build && npm run package` to update dist/index.js
+6. Run `npm run build && npm run package` to update dist/index.js (the action runs on `node24`, see action.yml)
 7. Test both APT and phpenv installation methods
